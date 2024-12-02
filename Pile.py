@@ -36,10 +36,11 @@ class MyStack:
         
         return value
     
-    def remove(self, value, key=None):
+    def remove(self, value, all=False, key=None):
         other = MyStack()
+        found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
-        while (not self.is_empty()):
+        while ((all or not found) and not self.is_empty()):
             current = self.pop()
             temp = current[key] if key is not None and type(current) is dict else current
             if temp != temp_val:
@@ -107,6 +108,10 @@ class MyStack:
 
         return min
     
+    def copy(self, other):
+        self.head = other.head
+        self.count = other.count
+    
     def max(self, key=None):
         other = MyStack()
         max = self.pop()
@@ -139,4 +144,11 @@ class MyStack:
         self.top = res.top
 
 if __name__ == "__main__":
-    pass
+    p = MyStack()
+    p.add(5)
+    p.add(12)
+    p.add(3)
+    p.add(12)
+    p.remove(12, True)
+    print(p)
+    print(p.size())
