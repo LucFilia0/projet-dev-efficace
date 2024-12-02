@@ -62,26 +62,38 @@ class MyQueue:
 
         return value
     
-    def remove(self, value, key=None):
+    def remove(self, value, all=False, key=None):
         other = MyQueue()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
         while (not self.is_empty()):
             current = self.pop()
             temp_curr = current[key] if key is not None and type(current) is dict else current
-            if temp_curr != temp_val:
+            if temp_curr != temp_val or (found and not all):
                 other.add(current)
             else:
                 found = True
 
+        self.copy(other)
+        return found
+    
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.count = 0
+
+    def copy(self, other):
         self.head = other.head
         self.tail = other.tail
-        return found
+        self.count = other.count
+
+    def size(self):
+        return self.count
 
     def __str__(self):
-        other = MyQueue()
         ret = "["
         if (not self.is_empty()):
+            other = MyQueue()
             comp = True
             while (comp):
                 value = self.pop()
@@ -91,8 +103,7 @@ class MyQueue:
                     ret += ","
                 comp = (self.head is not None)
             
-            self.head = other.head
-            self.tail = other.tail
+            self.copy(other)
 
         return ret + " ]"
 
@@ -104,5 +115,5 @@ if __name__ == "__main__":
     f.add(3)
     f.add(112)
     print(f)
-    f.remove(112)
+    print(f.size())
     print(f)
