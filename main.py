@@ -3,18 +3,19 @@ from model.File import *
 
 # Stack's tests
 
-""" 
+
 stack = Stack()
 
 stack.push(12)
 stack.push(1)
 stack.push(34)
 
-for i in range(4) :
-	print("---\nsize: ", stack.size())
-	print("empty: ", stack.isEmpty())
-	print("value: ", stack.pop())
- """
+print(stack)
+print(stack.pop())
+print(stack)
+print(stack.read())
+print(stack)
+
 
 # File's tests
 

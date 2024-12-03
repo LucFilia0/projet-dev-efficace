@@ -1,29 +1,46 @@
 class MyQueue:
 
-    def __init__(self):
-        self.head = None
-        self.tail = None
-        self.nbElements = 0
-
     class Node:
         def __init__(self, value):
             self.value = value
             self.next = None
             self.prev = None
 
-    def is_empty(self):
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.nbElements = 0
+
+    def __str__(self):
+        ret = "["
+        if (not self.isEmpty()):
+            other = MyQueue()
+            comp = True
+            while (comp):
+                value = self.pop()
+                other.push(value)
+                ret += " " + str(value)
+                if (self.head is not None):
+                    ret += ","
+                comp = (self.head is not None)
+            
+            self.copy(other)
+
+        return ret + " ]"
+
+    def isEmpty(self) -> bool :
         return self.head is None
     
-    def peek(self):
+    def read(self) -> object :
         value = None
-        if (self.head is not None):
+        if self.head is not None :
             value = self.head.value
 
         return value
 
-    def add(self, value):
+    def push(self, value) -> None :
         self.nbElements += 1
-        if (self.is_empty()):
+        if self.isEmpty() :
             self.head = self.Node(value)
             self.tail = self.head
         
@@ -66,11 +83,11 @@ class MyQueue:
         other = MyQueue()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
-        while (not self.is_empty()):
+        while (not self.isEmpty()):
             current = self.pop()
             temp_curr = current[key] if key is not None and type(current) is dict else current
             if temp_curr != temp_val or (found and not all):
-                other.add(current)
+                other.push(current)
             else:
                 found = True
 
@@ -95,12 +112,12 @@ class MyQueue:
         min = self.pop()
         temp_min = min[key] if key is not None and type(min) is dict else min
         if (min is not None):
-            other.add(min)
+            other.push(min)
         
-        while (not self.is_empty()):
+        while (not self.isEmpty()):
             current = self.pop()
             temp_current = current[key] if key is not None and type(current) is dict else current
-            other.add(current)
+            other.push(current)
             if temp_min > temp_current:
                 min = current
                 temp_min = temp_current
@@ -113,12 +130,12 @@ class MyQueue:
         max = self.pop()
         temp_max = max[key] if key is not None and type(max) is dict else max
         if (max is not None):
-            other.add(max)
+            other.push(max)
         
-        while (not self.is_empty()):
+        while (not self.isEmpty()):
             current = self.pop()
             temp_current = current[key] if key is not None and type(current) is dict else current
-            other.add(current)
+            other.push(current)
             if temp_max < temp_current:
                 max = current    
                 temp_max = temp_current
@@ -128,9 +145,9 @@ class MyQueue:
     
     def sort(self, reverse=False):
         other = MyQueue()
-        while (not self.is_empty()):
+        while (not self.isEmpty()):
             value = self.max() if reverse else self.min() 
-            other.add(value)
+            other.push(value)
             self.remove(value)
 
         self.copy(other)
@@ -139,9 +156,9 @@ class MyQueue:
         other = MyQueue()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
-        while (not found and not self.is_empty()):
+        while (not found and not self.isEmpty()):
             current = self.pop()
-            other.add(current)
+            other.push(current)
             temp_curr = current[key] if key is not None and type(current) is dict else current
             if temp_curr == temp_val:
                 found = True 
@@ -153,39 +170,12 @@ class MyQueue:
         other = MyQueue()
         count = 0
         temp_val = value[key] if key is not None and type(value) is dict else value
-        while (not self.is_empty()):
+        while (not self.isEmpty()):
             current = self.pop()
-            other.add(current)
+            other.push(current)
             temp_curr = current[key] if key is not None and type(current) is dict else current
             if temp_curr == temp_val:
                 count += 1
         
         self.copy(other)
         return count
-
-    def __str__(self):
-        ret = "["
-        if (not self.is_empty()):
-            other = MyQueue()
-            comp = True
-            while (comp):
-                value = self.pop()
-                other.add(value)
-                ret += " " + str(value)
-                if (self.head is not None):
-                    ret += ","
-                comp = (self.head is not None)
-            
-            self.copy(other)
-
-        return ret + " ]"
-
-if __name__ == "__main__":
-    f = MyQueue()
-    f.add(5)
-    f.add(112)
-    f.add(12)
-    f.add(3)
-    f.add(112)
-    print(f)  
-    print(f.count(112))
