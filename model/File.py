@@ -1,4 +1,4 @@
-class MyQueue:
+class File :
 
     class Node:
         def __init__(self, value):
