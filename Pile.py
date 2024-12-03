@@ -1,7 +1,7 @@
 class MyStack:
     def __init__(self):
         self.top = None
-        self.count = 0
+        self.nbElements = 0
 
     class Node:
         def __init__(self, value):
@@ -25,14 +25,14 @@ class MyStack:
             node.next = self.top
             self.top = node
         
-        self.count += 1
+        self.nbElements += 1
             
     def pop(self):
         value = None
         if (not self.is_empty()):
             value = self.top.value
             self.top = self.top.next
-            self.count -= 1
+            self.nbElements -= 1
         
         return value
     
@@ -52,27 +52,10 @@ class MyStack:
             self.add(other.pop())
 
         return found
-
-    
-    def __str__(self):
-        other = MyStack()
-        ret = "["
-        while (not self.is_empty()):
-            other.add(self.pop())
-            ret += " " + str(other.peek())
-            if (not self.is_empty()):
-                ret += ","
-        
-        ret += " ]"
-        while (not other.is_empty()):
-            self.add(other.pop())
-
-        del(other)
-        return ret
     
     def clear(self):
         self.top = None
-        self.count = 0
+        self.nbElements = 0
 
     def contains(self, value, key=None):
         other = MyStack()
@@ -89,50 +72,66 @@ class MyStack:
 
         return found
     
+    def count(self, value, key=None):
+        other = MyStack()
+        count = 0
+        temp_val = value[key] if key is not None and type(value) is dict else value
+        while (not self.is_empty()):
+            current = self.pop()
+            other.add(current)
+            temp_curr = current[key] if key is not None and type(current) is dict else current
+            if temp_curr == temp_val:
+                count += 1
+        
+        self.copy(other)
+        return count
+    
     def min(self, key=None):
         other = MyStack()
         min = self.pop()
+        temp_min = min[key] if key is not None and type(min) is dict else min
         if (min is not None):
             other.add(min)
         
         while (not self.is_empty()):
             current = self.pop()
             temp_current = current[key] if key is not None and type(current) is dict else current
-            temp_min = min[key] if key is not None and type(min) is dict else min
             other.add(current)
             if temp_min > temp_current:
                 min = current
+                temp_min = temp_current
 
         while (not other.is_empty()):
             self.add(other.pop())
 
         return min
     
-    def copy(self, other):
-        self.head = other.head
-        self.count = other.count
-    
     def max(self, key=None):
         other = MyStack()
         max = self.pop()
+        temp_max = max[key] if key is not None and type(max) is dict else max
         if (max is not None):
             other.add(max)
         
         while (not self.is_empty()):
             current = self.pop()
             temp_current = current[key] if key is not None and type(current) is dict else current
-            temp_max = max[key] if key is not None and type(max) is dict else max
             other.add(current)
             if temp_max < temp_current:
                 max = current    
+                temp_max = temp_current
         
         while (not other.is_empty()):
             self.add(other.pop())
 
         return max
     
+    def copy(self, other):
+        self.top = other.top
+        self.nbElements = other.nbElements
+
     def size(self):
-        return self.count
+        return self.nbElements
     
     def sort(self, reverse=False):
         res = MyStack()
@@ -143,12 +142,27 @@ class MyStack:
         
         self.top = res.top
 
+    def __str__(self):
+        other = MyStack()
+        ret = "["
+        while (not self.is_empty()):
+            other.add(self.pop())
+            ret += " " + str(other.peek())
+            if (not self.is_empty()):
+                ret += ","
+        
+        ret += " ]"
+        while (not other.is_empty()):
+            self.add(other.pop())
+
+        del(other)
+        return ret
+
 if __name__ == "__main__":
     p = MyStack()
     p.add(5)
     p.add(12)
     p.add(3)
     p.add(12)
-    p.remove(12, True)
     print(p)
-    print(p.size())
+    print(p.count(12))
