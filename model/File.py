@@ -1,4 +1,4 @@
-class File :
+class File:
 
     class Node:
         def __init__(self, value):
@@ -14,7 +14,7 @@ class File :
     def __str__(self):
         ret = "["
         if (not self.isEmpty()):
-            other = MyQueue()
+            other = File()
             comp = True
             while (comp):
                 value = self.pop()
@@ -80,10 +80,10 @@ class File :
         return value
     
     def remove(self, value, all=False, key=None):
-        other = MyQueue()
+        other = File()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
-        while (not self.isEmpty()):
+        while not self.isEmpty():
             current = self.pop()
             temp_curr = current[key] if key is not None and type(current) is dict else current
             if temp_curr != temp_val or (found and not all):
@@ -108,13 +108,13 @@ class File :
         return self.nbElements
 
     def min(self, key=None):
-        other = MyQueue()
+        other = File()
         min = self.pop()
         temp_min = min[key] if key is not None and type(min) is dict else min
-        if (min is not None):
+        if min is not None:
             other.push(min)
         
-        while (not self.isEmpty()):
+        while not self.isEmpty():
             current = self.pop()
             temp_current = current[key] if key is not None and type(current) is dict else current
             other.push(current)
