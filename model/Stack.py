@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-from model.Node import Node
-
->>>>>>> 77d6b7d (caca prout)
 class Stack :
 
 
