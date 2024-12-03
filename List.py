@@ -176,7 +176,6 @@ class MyList:
 
         self.list = res
 
-
 if __name__ == "__main__":
     liste = MyList()
     liste.add(2)
