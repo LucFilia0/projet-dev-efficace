@@ -1,3 +1,3 @@
-from game.view.prompt import promptMenu
+from game.view.menu import menu
 
-promptMenu()
+menu()
