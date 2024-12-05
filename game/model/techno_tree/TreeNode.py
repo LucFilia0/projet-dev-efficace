@@ -1,6 +1,6 @@
 from colorama import Fore, Back, Style
 
-class Node:
+class TreeNode:
     def __init__(self, name, desc, cost):
         self.name = name
         self.desc = desc

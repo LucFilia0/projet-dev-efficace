@@ -7,4 +7,4 @@ class Game :
 		self.players = List()
 	
 	def start(self) :
-		
+		pass
