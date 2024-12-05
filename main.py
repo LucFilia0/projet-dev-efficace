@@ -1,1 +1,3 @@
-print("caca")
+from game.menu import promptMenu
+
+promptMenu()
