@@ -21,10 +21,20 @@ class TreeNode:
             self.children.get(i).printNodeAndChildren(layer+1)
             i += 1
 
+    def addChildrenRecur(self, data : dict):
+        from game.model.techno_tree.NodeFactory import NodeFactory
+        childrenList = data["children"]
+        for nodeData in childrenList:
+            node = NodeFactory.create(nodeData)
+            self.addChild(node)
+            node.addChildrenRecur(nodeData)
+
+
+
     def __str__(self):
         return self.name
                 
-                
+
 
 class BuyableNode(TreeNode):
     def __init__(self, name : str, desc : str, cost : int):

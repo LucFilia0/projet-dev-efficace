@@ -8,12 +8,14 @@
                 "name" : "TestNode",
                 "desc" : "Wtf maaaaan",
                 "type" : "BuyableNode",
+                "cost" : 12,
                 "children" : []
             },
             {
                 "name" : "TestNode2",
                 "desc" : "BROOOOOOO",
                 "type" : "BuyableNode",
+                "cost" : 14,
                 "children" : []
             }
         ]

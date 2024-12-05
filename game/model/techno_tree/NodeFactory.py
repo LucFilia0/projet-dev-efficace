@@ -1,11 +1,13 @@
 from game.model.techno_tree.AbstractNodes import *
 
 class NodeFactory:
-    def create(nodeData : dict):
+    def create(nodeData : dict) -> TreeNode :
         name = nodeData["name"]
         desc = nodeData["desc"]
         match nodeData["type"]:
             case "TreeNode":
                 return TreeNode(name, desc)     
             case "BuyableNode":
-                return BuyableNode(name, desc, int(nodeData["cost"]))     
+                return BuyableNode(name, desc, nodeData["cost"])
+            case _:
+                return None
