@@ -1,22 +1,34 @@
+import json
+import os
 from game.model.techno_tree.AbstractNodes import *
+from game.model.techno_tree.NodeFactory import NodeFactory
 from model.Stack import Stack
 
 class TechnologyTree:
     def __init__(self):
-        self.root = TreeNode("Bienvenue dans l'arbre des Technologies", 
-                             """Ici vous pourrez débloquer différentes technologies en échange de
-                             **POINTS DE COMPETENCES** que vous débloquerez au fur et à mesure de la partie
-                             """)
-        
-    
-    def buildTree(self):
-        # TODO import from json
-        self.root.addChild(BuyableNode("DOUZE", "LE POUVOIR DU DOUZE", 12012))
+        self.root = None
 
     def printTree(self):
-        layer = 0
+        if (self.root is not None):
+            self.root.printNodeAndChildren(0)
+
+    def buildTree(self):    
         stack = Stack()
-        stack.push(self.root)
-        while not stack.isEmpty():
-            node = stack.pop()
-            i = node
+        with open(os.getcwd() + "/data/tree.json") as tree_file:
+            tree_data = json.load(tree_file)
+            root = dict.get(tree_data, "root")
+            if root is None:
+                return -1
+            
+            stack.push(root)
+            while (not stack.isEmpty()):
+                nodeData = stack.pop()
+                node = NodeFactory.create(nodeData)
+
+
+
+if __name__ == "__main__":
+    tree = TechnologyTree()
+    tree.buildTree()
+    tree.printTree()
+        

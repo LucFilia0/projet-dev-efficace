@@ -1,0 +1,21 @@
+{
+    "root" : {
+        "name" : "Arbre des Technologies",
+        "desc" : "Ici vous pourrez débloquer différentes technologies en échange de **POINTS DE COMPETENCES** que vous débloquerez au fur et à mesure de la partie",
+        "type" : "TreeNode",
+        "children" : [
+            {
+                "name" : "TestNode",
+                "desc" : "Wtf maaaaan",
+                "type" : "BuyableNode",
+                "children" : []
+            },
+            {
+                "name" : "TestNode2",
+                "desc" : "BROOOOOOO",
+                "type" : "BuyableNode",
+                "children" : []
+            }
+        ]
+    }
+}
