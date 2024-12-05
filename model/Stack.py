@@ -179,3 +179,11 @@ class Stack :
 			res.push(value)
 			self.remove(value)
 		self.top = res.top
+
+	def reverse(self):
+		
+		other = Stack()
+		while not self.isEmpty():
+			other.push(self.pop())
+
+		self.copy(other)

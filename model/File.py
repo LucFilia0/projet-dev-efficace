@@ -1,4 +1,4 @@
-class File:
+class Queue :
 
     class Node:
         def __init__(self, value):
@@ -14,7 +14,7 @@ class File:
     def __str__(self):
         ret = "["
         if (not self.isEmpty()):
-            other = File()
+            other = Queue()
             comp = True
             while (comp):
                 value = self.pop()
@@ -80,7 +80,7 @@ class File:
         return value
     
     def remove(self, value, all=False, key=None):
-        other = File()
+        other = Queue()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
         while not self.isEmpty():
@@ -108,7 +108,7 @@ class File:
         return self.nbElements
 
     def min(self, key=None):
-        other = File()
+        other = Queue()
         min = self.pop()
         temp_min = min[key] if key is not None and type(min) is dict else min
         if min is not None:
@@ -126,7 +126,7 @@ class File:
         return min  
 
     def max(self, key=None):
-        other = MyQueue()
+        other = Queue()
         max = self.pop()
         temp_max = max[key] if key is not None and type(max) is dict else max
         if (max is not None):
@@ -144,7 +144,7 @@ class File:
         return max
     
     def sort(self, reverse=False):
-        other = MyQueue()
+        other = Queue()
         while (not self.isEmpty()):
             value = self.max() if reverse else self.min() 
             other.push(value)
@@ -153,7 +153,7 @@ class File:
         self.copy(other)
 
     def contains(self, value, key=None):
-        other = MyQueue()
+        other = Queue()
         found = False
         temp_val = value[key] if key is not None and type(value) is dict else value
         while (not found and not self.isEmpty()):
@@ -167,7 +167,7 @@ class File:
         return found
     
     def count(self, value, key=None):
-        other = MyQueue()
+        other = Queue()
         count = 0
         temp_val = value[key] if key is not None and type(value) is dict else value
         while (not self.isEmpty()):
@@ -179,3 +179,7 @@ class File:
         
         self.copy(other)
         return count
+    
+    def reverse(self):
+        pass
+

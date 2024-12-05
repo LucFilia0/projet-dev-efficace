@@ -1,4 +1,4 @@
-class MyList:
+class List:
     
     # Exercice 1
 
@@ -99,7 +99,7 @@ class MyList:
     
     def k_biggest(self, k, cle = None):
         # Liste ordonnée par odre croissant contenant au plus k éléments
-        count = MyList()
+        count = List()
         for element in self.list:
             element = element[cle] if cle is not None and type(element) is dict else element
             
@@ -119,7 +119,7 @@ class MyList:
     # Fusionne 2 listes triées en une grand liste triée
     def merge(self, other, cle = None):
         i, j = 0, 0
-        res = MyList()
+        res = List()
         while (i < self.size() and j < other.taille()):
             elemSelf = self.list[i][cle] if cle is not None and type(self.list[i]) is dict else self.list[i]
             elemOther = other.list[j][cle] if cle is not None and type(other.list[j]) is dict else other.list[j]
@@ -175,18 +175,6 @@ class MyList:
             j += 1
 
         self.list = res
-
-if __name__ == "__main__":
-    liste = MyList()
-    liste.add(2)
-    liste.add({"a" : 3})
-    liste.add(3)
-    liste.add(5)
-    liste.add(12)
-    liste.add(18)
-    liste.add(1)
-
-    print(liste.count(3, "a"))
 
 
 
