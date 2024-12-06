@@ -9,7 +9,7 @@ class Player :
 
 	def __init__(self, name : str) :
 		self.name = name
-		self.nation = None
+		self.city = None
 		self.resources = Resources()
 		self.facilities = List()
 		self.technoTree = None

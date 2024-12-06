@@ -4,17 +4,12 @@ from game.view.prompt import *
 
 class Campaign :
 
-	def __init__(self, name : str, duration : int) :
-		self.name = name
+	def __init__(self) :
+		self.name = ""
 		self.currentPlayer = None
 		self.playerQueue = Queue()
-		if duration == 1 :
-			t = 20
-		elif duration == 2 :
-			t = 40
-		else :
-			t = 60
-		self.turnNumber = t
+		self.currentTurn = 0
+		self.maxTurn = 0
 	
 	def addPlayer(self, player : Player) -> None :
 		self.playerQueue.push(player)
@@ -22,52 +17,57 @@ class Campaign :
 	def nextPlayer(self) -> None :
 		self.playerQueue.push(self.currentPlayer)
 		self.currentPlayer = self.playerQueue.pop()
+		self.currentTurn += 1
 	
 	def start(self) -> None :
 		self.nextPlayer()
 		self.preBoard()
 	
-	def promptStatus(self, title : str, ressources = True) -> None :
-		clear()
-		print(f"|# {self.currentPlayer} #|\n{self.currentPlayer.nation}")
-		if ressources :
+	def promptStatus(self, path : str, prompt = True) -> None :
+		screen(f"{self.currentPlayer.name} | {self.currentPlayer.city.name}")
+		if prompt :
+			print(f"> {path}")
 			self.promptResources()
-		print(f"> {title}")
 		
 	def promptResources(self) -> None :
 		pad = 3
-		line = 30
+		line = 60
 		promptLine(line)
-		print(f"SCORE : DOM {padNumber(self.currentPlayer.resources.domination, pad)} | ECO {padNumber(self.currentPlayer.resources.economy, pad)} | SAV {padNumber(self.currentPlayer.resources.knowledge, pad)}")
-		print(f"CRAFT :  OR {padNumber(self.currentPlayer.resources.gold, pad)} | BOI {padNumber(self.currentPlayer.resources.wood, pad)} | PIR {padNumber(self.currentPlayer.resources.stone, pad)} | FER {padNumber(self.currentPlayer.resources.iron, pad)} | NUR {padNumber(self.currentPlayer.resources.food, pad)}")
+		print(f"SCORE || DOM {padNumber(self.currentPlayer.resources.domination, pad)} | ECO {padNumber(self.currentPlayer.resources.wealth, pad)} | SAV {padNumber(self.currentPlayer.resources.knowledge, pad)}")
+		print(f"CRAFT ||  OR {padNumber(self.currentPlayer.resources.gold, pad)} | BOI {padNumber(self.currentPlayer.resources.wood, pad)} | PIR {padNumber(self.currentPlayer.resources.stone, pad)} | FER {padNumber(self.currentPlayer.resources.iron, pad)} | NUR {padNumber(self.currentPlayer.resources.food, pad)}")
 		promptLine(line)
 
 	def preBoard(self) -> None :
-		self.promptStatus("...", False)
-		userInputInt("\n<-- À toi de jouer ! [0] -->", 0, 0)
+		self.promptStatus("", False)
+		userInputInt("[1] À toi de jouer !", 1, 1)
 		self.board()
 
 	def board(self) -> None :
-		self.promptStatus("NATION")
-		choice = userInputInt("[1] Batiments\n[2] Troupes\n[0] Finir le tour", 0, 2)
-		if choice == 0 :
-			self.nextPlayer()
-			self.preBoard()
-		elif choice == 1 :
+		self.promptStatus("CITE")
+		choice = userInputInt("[1] Batiments\n[2] Troupes\n[3] Finir le tour", 1, 3)
+		if choice == 1 :
 			self.promptFacilities()
 		elif choice == 2 :
-			print("Afficher troupes") #TODO
+			self.promptTroups()
+		else :
+			self.nextPlayer()
+			self.preBoard() #TODO
 
 	def promptFacilities(self) -> None :
-		self.promptStatus("BATIMENTS")
+		self.promptStatus("CITE / BATIMENTS")
 		length = self.currentPlayer.facilities.size()
 		if length == 0 :
 			print("<-- Aucune construction -->")
 		else :
 			for i in range(length) :
-				print(f"{i} | {self.currentPlayer.facilities.get(i)}")
+				print(self.currentPlayer.facilities.get(i))
 		choice = userInputInt("[1] Construire")
 	
 	def buildFacility(self) -> None :
-		self.promptStatus("BATIMENTS > CONSTRUIRE")
-		choice = userInputInt("\n[0] Nom (cout | gain | temps de construction)\n---\n")
+		self.promptStatus("CITE / BATIMENTS / CONSTRUIRE")
+		choice = userInputInt("[1] Habitation\n[2] Ferme\n[3] Scierie\n[4] Mine\n[5] Caserne\n[6] Marché", 1, 6)
+		if choice == 1 :
+			pass #TODO
+	
+	def promptTroups(self) -> None :
+		print("Afficher les troupes")
