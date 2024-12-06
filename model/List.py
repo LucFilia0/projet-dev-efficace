@@ -1,3 +1,5 @@
+from model.Queue import Queue
+
 class List:
     
     # Exercice 1
@@ -249,38 +251,38 @@ class ListFromScratch:
         
         return current
     
-    def getNodes(self, indexSet : set) -> list:
+    def getNodes(self, indexSet : set) -> Queue:
         i = 0
-        ret = []
+        ret = Queue()
         current = self.head
         while (i < self.len):
             if (i in indexSet):
-                ret.append(current)
+                ret.push(current)
             current = current.next
             i+= 1
 
         return ret     
     
-    def getValuesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> list:
-        list = self.getNodesInRange(indexStart, indexEnd)
-        for i in range(len(list)):
-            list[i] = list[i].value
-        return list
+    def getValuesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> Queue:
+        queue = self.getNodesInRange(indexStart, indexEnd)
+        for i in range(queue.size()):
+            queue.push(queue.pop().value)
+        return queue
             
 
-    def getNodesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> list:
+    def getNodesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> Queue:
         indexEnd = self.len-1 if indexEnd is None else indexEnd
 
+        ret = Queue()
         if indexStart < 0 or indexStart >= self.len or indexEnd < 0 or indexEnd > self.len or indexEnd < indexStart:
-            return []
+            return ret
 
-        ret = []
         if (indexStart <= self.len/2):
             i = 0
             current = self.head
             while (i <= indexEnd):
                 if i >= indexStart:
-                    ret.append(current)
+                    ret.push(current)
                 current = current.next
                 i += 1
         else:
@@ -288,7 +290,7 @@ class ListFromScratch:
             current = self.tail
             while (i >= indexStart):
                 if i <= indexEnd:
-                    ret.append(current)
+                    ret.push(current)
                 current = current.prev
                 i -= 1
 
@@ -345,21 +347,14 @@ class ListFromScratch:
         if (index1 == index2):
             return True
         
-        nodeList = self.getNodes(set([index1, index2]))
-        node1, node2 = nodeList[0], nodeList[1]
+        nodeQueue = self.getNodes(set([index1, index2]))
+        node1 = nodeQueue.pop()
+        node2 = nodeQueue.pop()
         temp = node1.value
         node1.value = node2.value
         node2.value = temp
 
         return True
-
-    
-if __name__ == "__main__":
-    list = ListFromScratch()
-    for i in range(100):
-        list.add(i, i)
-    list.remove(50)
-    print(list)
         
 
 

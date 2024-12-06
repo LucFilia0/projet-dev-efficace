@@ -20,9 +20,11 @@ class TreeNode:
     
     def printNodeAndChildren(self, layer : int) -> None:
         print('-'*layer + str(self))
-        nodeList = self.children.getValuesInRange()
-        for node in nodeList:
+        nodeQueue = self.children.getValuesInRange()
+        node = nodeQueue.pop()
+        while (node is not None):
             node.printNodeAndChildren(layer+1)
+            node = nodeQueue.pop()
 
     def addChildrenRecur(self, data : dict):
         from game.model.techno_tree.NodeFactory import NodeFactory
