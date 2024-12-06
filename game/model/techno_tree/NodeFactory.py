@@ -9,5 +9,7 @@ class NodeFactory:
                 return TreeNode(name, desc)     
             case "BuyableNode":
                 return BuyableNode(name, desc, nodeData["cost"])
+            case "TextNode":
+                return TextNode(name, desc)
             case _:
                 return None

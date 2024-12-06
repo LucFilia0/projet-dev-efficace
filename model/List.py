@@ -176,8 +176,191 @@ class List:
 
         self.list = res
 
+class ListFromScratch:
 
+    class Node:
+        
+        def __init__(self, value, next=None, prev=None) -> None:
+            self.value = value
+            self.next = next
+            self.prev = prev
 
+        def __str__(self) -> str:
+            return str(self.value)
+
+    def __init__(self) -> None:
+        self.head = None
+        self.tail = None
+        self.len = 0
+
+    def isEmpty(self):
+        return (self.len == 0)
+
+    def add(self, value, index=0) -> bool:
+        if index > self.len or index < 0:
+            return False
+
+        if self.len == 0:
+            self.head = self.Node(value)
+            self.tail = self.head
+            
+        elif index == 0:
+            node = self.Node(value, self.head, None)
+            if (self.head is not None):
+                self.head.prev = node
+            self.head = node
+
+        elif index == self.len:
+            node = self.Node(value, None, self.tail)
+            if (self.tail is not None):
+                self.tail.next = node
+            self.tail = node
+
+        else:
+            current = self.getNode(index)
+            node = self.Node(value, current, current.prev)
+            
+            current.prev.next = node
+            current.prev = node               
+
+        self.len += 1
+        return True
+    
+    def get(self, index):
+        node = self.getNode(index)
+        return node if node is None else node.value
+
+    def getNode(self, index : int) -> Node:
+        if index < 0 or index >= self.len:
+            return None
+
+        if index > self.len/2:
+            i = self.len-1
+            current = self.tail
+            while (i > index):
+                i -= 1
+                current = current.prev
+        else:
+            i = 0
+            current = self.head
+            while (i < index):
+                i += 1
+                current = current.next
+        
+        return current
+    
+    def getNodes(self, indexSet : set) -> list:
+        i = 0
+        ret = []
+        current = self.head
+        while (i < self.len):
+            if (i in indexSet):
+                ret.append(current)
+            current = current.next
+            i+= 1
+
+        return ret     
+    
+    def getValuesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> list:
+        list = self.getNodesInRange(indexStart, indexEnd)
+        for i in range(len(list)):
+            list[i] = list[i].value
+        return list
+            
+
+    def getNodesInRange(self, indexStart : int = 0, indexEnd : int | None = None) -> list:
+        indexEnd = self.len-1 if indexEnd is None else indexEnd
+
+        if indexStart < 0 or indexStart >= self.len or indexEnd < 0 or indexEnd > self.len or indexEnd < indexStart:
+            return []
+
+        ret = []
+        if (indexStart <= self.len/2):
+            i = 0
+            current = self.head
+            while (i <= indexEnd):
+                if i >= indexStart:
+                    ret.append(current)
+                current = current.next
+                i += 1
+        else:
+            i = self.len-1
+            current = self.tail
+            while (i >= indexStart):
+                if i <= indexEnd:
+                    ret.append(current)
+                current = current.prev
+                i -= 1
+
+        return ret  
+
+    
+    def remove(self, index : int) -> bool:
+        if index >= self.len or index  < 0 or self.len == 0:
+            return False
+
+        if self.len == 1:
+            self.head = None
+            self.tail = None
+        
+        elif index == 0:
+            self.head = self.head.next
+            self.head.prev = None
+        
+        elif index == self.len-1:
+            self.tail = self.tail.prev
+            self.tail.next = None
+
+        else:
+            current = self.getNode(index)
+            current.prev.next = current.next
+            current.next.prev = current.prev
+            
+            del current
+
+        self.len -= 1
+        return True
+
+    def __str__(self) -> str:
+        ret = "["
+        current = self.head
+        while (current is not None):
+            ret += f" {current.value}"
+            current = current.next
+            if (current is not None):
+                ret += ","
+        
+        return ret + " ]"
+    
+    def printReverse(self):
+        current = self.tail
+        while (current is not None):
+            print(current, end = " ")
+            current = current.prev
+
+    def swap(self, index1 : int, index2 : int) -> bool:
+        if (index1 < 0 or index2 < 0 or index1 > self.len or index2 > self.len):
+            return False
+        
+        if (index1 == index2):
+            return True
+        
+        nodeList = self.getNodes(set([index1, index2]))
+        node1, node2 = nodeList[0], nodeList[1]
+        temp = node1.value
+        node1.value = node2.value
+        node2.value = temp
+
+        return True
+
+    
+if __name__ == "__main__":
+    list = ListFromScratch()
+    for i in range(100):
+        list.add(i, i)
+    list.remove(50)
+    print(list)
+        
 
 
 
