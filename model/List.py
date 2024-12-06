@@ -1,6 +1,6 @@
 from model.Queue import Queue
 
-class List:
+class ListDeCon:
     
     # Exercice 1
 
@@ -101,7 +101,7 @@ class List:
     
     def k_biggest(self, k, cle = None):
         # Liste ordonnée par odre croissant contenant au plus k éléments
-        count = List()
+        count = ListDeCon()
         for element in self.list:
             element = element[cle] if cle is not None and type(element) is dict else element
             
@@ -121,7 +121,7 @@ class List:
     # Fusionne 2 listes triées en une grand liste triée
     def merge(self, other, cle = None):
         i, j = 0, 0
-        res = List()
+        res = ListDeCon()
         while (i < self.size() and j < other.taille()):
             elemSelf = self.list[i][cle] if cle is not None and type(self.list[i]) is dict else self.list[i]
             elemOther = other.list[j][cle] if cle is not None and type(other.list[j]) is dict else other.list[j]
@@ -178,7 +178,7 @@ class List:
 
         self.list = res
 
-class ListFromScratch:
+class List:
 
     class Node:
         

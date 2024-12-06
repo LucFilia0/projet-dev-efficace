@@ -1,6 +1,6 @@
 from game.model.Player import Player
 from typing import Self
-from model.List import ListFromScratch
+from model.List import List
 from colorama import Fore, Style
 
 from model.Stack import Stack
@@ -9,7 +9,7 @@ class TreeNode:
     def __init__(self, name : str, desc : str):
         self.name = name
         self.desc = desc
-        self.children = ListFromScratch()
+        self.children = List()
         self.unlocked = False
 
     def addChild(self, node):
