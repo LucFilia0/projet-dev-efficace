@@ -1,5 +1,5 @@
 from game.model.Facility import Facility
-from model.List import List
+from model.List import ListDeCon
 from game.view.prompt import padNumber
 from game.model.Resources import Resources
 from game.view.prompt import clear
@@ -11,7 +11,7 @@ class Player :
 		self.name = name
 		self.city = None
 		self.resources = Resources()
-		self.facilities = List()
+		self.facilities = ListDeCon()
 		self.technoTree = None
 	
 	def __str__(self) -> str :
