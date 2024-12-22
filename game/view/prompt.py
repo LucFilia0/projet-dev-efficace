@@ -38,10 +38,10 @@ def userInputStr(msg : str) -> str :
 def screen(title : str) -> None :
 	clear()
 	print(f"{title}")
-	promptLine(60)
+	promptLine()
 
-def promptLine(length : int) -> None :
+def promptLine() -> None :
 	ret = ""
-	for i in range(length) :
+	for i in range(60) :
 		ret += "-"
 	print(ret)
