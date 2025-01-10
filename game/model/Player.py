@@ -13,6 +13,7 @@ class Player :
 		self.resources = Resources()
 		self.facilities = ListDeCon()
 		self.technoTree = None
+		self._initBonusGains()
 	
 	def __str__(self) -> str :
 		return self.name
@@ -24,3 +25,15 @@ class Player :
 			promptSep(f"Echec : Créer {facility.type}")
 			userInputInt("Vous n'avez pas les ressources suffisantes pour effectuer cette action...\n0 - Retour", 0, 0)
 			self.promptBoard
+	
+	def _initBonusGains(self):
+		self.bonusGains = {
+			"domination" : 0,
+			"wealth" : 0,
+			"knowledge" : 0,
+			"wood" : 0,
+			"stone" : 0,
+			"gold" : 0,
+			"iron" : 0,
+			"food" : 0,
+		}

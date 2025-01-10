@@ -10,7 +10,7 @@ class TreeNode:
         self.name = name
         self.desc = desc
         self.children = List()
-        self.unlocked = False
+        self.unlocked = True
 
     def addChild(self, node):
         self.children.add(node)
@@ -18,13 +18,18 @@ class TreeNode:
     def nbChild(self) -> int:
         return self.children.len
     
-    def printNodeAndChildren(self, layer : int) -> None:
-        print('-'*layer + str(self))
+    def isBuyable(self) -> bool:
+        return False
+    
+    def printNodeAndChildren(self, layer : int, color=Fore.WHITE) -> None:
+        print(Fore.WHITE, '-'*layer, sep="", end="")
+        print(color, str(self), sep="")
         nodeQueue = self.children.getValuesInRange()
         node = nodeQueue.pop()
         while (node is not None):
             node.printNodeAndChildren(layer+1)
             node = nodeQueue.pop()
+        print(Style.RESET_ALL, sep="", end="")
 
     def addChildrenRecur(self, data : dict):
         from game.model.techno_tree.NodeFactory import NodeFactory
@@ -36,6 +41,35 @@ class TreeNode:
 
     def __str__(self):
         return self.name
+    
+    def getPrintableDescAndChildren(self, hasPrevious : bool) -> str:
+        ret = str(self) + " : " + '\n'
+        ret += self.desc + '\n\n'
+        ind = 1
+        
+        if self.isBuyable():
+            ret += f"{Fore.RED}Vous devez débloquer cette Technologie pour consulter ses débouchés.\nCoût : {self.cost}\n{Style.RESET_ALL}"
+        elif (self.children.len == 0):
+            ret += "Cette technologie ne débloque rien d'autre\n"
+        
+        ret += f"[{ind - 1}] Quitter\n"
+        while (ind <= self.children.len):
+            node = self.children.get(ind - 1)
+            if node.unlocked:
+                ret += f"[{ind}] {node}\n"
+            else:
+                ret += f"{Fore.RED}[{ind}] {node}{Style.RESET_ALL}\n"
+            ind += 1
+
+        if self.isBuyable():
+            ret += f"{Fore.GREEN}[{ind}] Débloquer{Style.RESET_ALL}\n"
+            ind += 1
+
+        if hasPrevious:
+            ret += f"[{ind}] Retour\n"
+            ind += 1
+
+        return ret
     
     def findDirectChild(self, name) -> Self:
         i = 0
@@ -64,6 +98,7 @@ class TextNode(TreeNode):
 class BuyableNode(TreeNode):
     def __init__(self, name : str, desc : str, cost : int):
         super().__init__(name, desc)
+        self.unlocked = False
         self.cost = cost
 
     def buy(self, player : Player) -> bool:
@@ -73,6 +108,9 @@ class BuyableNode(TreeNode):
             return True
             # TODO Fire unlocked event
         return False
+    
+    def isBuyable(self) -> bool:
+        return not self.unlocked
 
     def printNode(self) -> None:
         print(self.name.center(30, "="))

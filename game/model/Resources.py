@@ -35,6 +35,13 @@ class Resources:
          """
     
     def isGreaterOrEqualThan(self, resources) -> bool :
-        return self.domination >= resources.domination and self.wealth >= resources.wealth and self.knowledge >= resources.knowledge and self.gold >= resources.gold and self.wood >= resources.wood and self.stone >= resources.stone and self.iron >= resources.iron and self.food >= resources.food 
+        return (self.domination >= resources.domination 
+                and self.wealth >= resources.wealth 
+                and self.knowledge >= resources.knowledge 
+                and self.gold >= resources.gold 
+                and self.wood >= resources.wood 
+                and self.stone >= resources.stone 
+                and self.iron >= resources.iron 
+                and self.food >= resources.food) 
 
         
