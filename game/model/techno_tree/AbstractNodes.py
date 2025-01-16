@@ -6,6 +6,12 @@ from colorama import Fore, Style
 from model.Stack import Stack
 
 class TreeNode:
+    """
+    Abstract Node, inherited by any node that will be contained in the tree.
+    Contains the essential methods and attributes all nodes need.
+    author : Nathan
+    """
+    
     def __init__(self, name : str, desc : str):
         self.name = name
         self.desc = desc
@@ -22,6 +28,11 @@ class TreeNode:
         return False
     
     def printNodeAndChildren(self, layer : int, color=Fore.WHITE) -> None:
+        """
+        Recursively prints the tree in a readable way
+        author : Nathan
+        """
+        
         print(Fore.WHITE, '-'*layer, sep="", end="")
         print(color, str(self), sep="")
         nodeQueue = self.children.getValuesInRange()
@@ -32,6 +43,13 @@ class TreeNode:
         print(Style.RESET_ALL, sep="", end="")
 
     def addChildrenRecur(self, data : dict):
+        """
+        Generates a node from the data contained in a dictionnary
+        (extracted from a json).
+        The node will then create its children, until the tree is entirely filled.
+        author : Nathan
+        """
+
         from game.model.techno_tree.NodeFactory import NodeFactory
         childrenList = data["children"]
         for nodeData in childrenList:
@@ -43,6 +61,15 @@ class TreeNode:
         return self.name
     
     def getPrintableDescAndChildren(self, hasPrevious : bool) -> str:
+        """
+        Returns a string containing the selection menu relative to every Node
+        The menu has a quit option,
+        Then an option to access every child,
+        If it can be unlocked, it will have an option "Débloquer",
+        And finally, if it has a parent, will have an option "Retour", to go back to it.
+        author : Nathan
+        """
+        
         ret = str(self) + " : " + '\n'
         ret += self.desc + '\n\n'
         ind = 1
@@ -90,12 +117,19 @@ class TreeNode:
             nodeList = node.children.getValuesInRange()
             for node in nodeList:
                 stack.push(node)
-                
+
 class TextNode(TreeNode):
+    """
+    Node that will only contain text, used for giving information, cannot be bought
+    author : Nathan
+    """                
     def __init__(self, name: str, desc: str):
         super().__init__(name, desc)
 
 class BuyableNode(TreeNode):
+    """
+    Abstract Node inherited by all nodes which can be unlocked 
+    """
     def __init__(self, name : str, desc : str, cost : int):
         super().__init__(name, desc)
         self.unlocked = False
