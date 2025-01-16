@@ -15,7 +15,7 @@ def selectOnlyInt(line : str) -> int :
 
 def userInputInt(msg : str, min : int, max : int) -> int :
 	quit = False
-	print(msg)
+	print("\n" + msg)
 	while not quit :
 		ret = selectOnlyInt(input(">> "))
 		if ret < min or max < ret :
@@ -27,7 +27,7 @@ def userInputInt(msg : str, min : int, max : int) -> int :
 def userInputStr(msg : str) -> str :
 	quit = False
 	while not quit :
-		print(msg)
+		print("\n" + msg)
 		ret = str(input(">> "))
 		if ret == "\n" :
 			print("<-- Les chaînes vides ne sont pas acceptées")

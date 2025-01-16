@@ -12,7 +12,6 @@ class Resources:
         self.iron = iron
         self.food = food
 
-    """ 
     def __str__(self) -> str :
         ret = ""
         if self.domination != 0 :
@@ -32,9 +31,32 @@ class Resources:
         if self.food != 0 :
             ret += f"NUR {self.food} "
         return ret
-         """
     
     def isGreaterOrEqualThan(self, resources) -> bool :
-        return self.domination >= resources.domination and self.wealth >= resources.wealth and self.knowledge >= resources.knowledge and self.gold >= resources.gold and self.wood >= resources.wood and self.stone >= resources.stone and self.iron >= resources.iron and self.food >= resources.food 
+        return self.domination >= resources.domination and self.wealth >= resources.wealth and self.knowledge >= resources.knowledge and self.gold >= resources.gold and self.wood >= resources.wood and self.stone >= resources.stone and self.iron >= resources.iron and self.food >= resources.food
+
+    def add(self, resources) -> None :
+        if(resources is not None) :
+            self.domination += resources.domination
+            self.wealth     += resources.wealth
+            self.knowledge  += resources.knowledge
+            self.gold       += resources.gold
+            self.wood       += resources.wood
+            self.stone      += resources.stone
+            self.iron       += resources.iron
+            self.food       += resources.food
+
+    def sub(self, resources) -> bool :
+        if(self.isGreaterOrEqualThan(resources)) :
+            self.domination -= resources.domination
+            self.wealth     -= resources.wealth
+            self.knowledge  -= resources.knowledge
+            self.gold       -= resources.gold
+            self.wood       -= resources.wood
+            self.stone      -= resources.stone
+            self.iron       -= resources.iron
+            self.food       -= resources.food
+            return True
+        return False
 
         

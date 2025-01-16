@@ -355,9 +355,33 @@ class List:
         node2.value = temp
 
         return True
+
+    def containsInstanceOf(self, thing : any) -> bool :
+        contains = False
         
+        if self.head != None :
+            if type(self.head.value) is type(thing) :
+                contains = True
+            elif self.head.next is not None :
+                current = self.head.next
+                while current.next is not None and not contains :
+                    if type(current.value) == type(thing) :
+                        contains = True
+                    current = current.next
 
+        return contains
+        
+    def onlyInstanceOf(self, thing : any) :
+        filteredList = List()
 
+        if self.head is not None :
+            if type(self.head.value) is type(thing) :
+                filteredList.add(self.head.value)
+            if self.head.next is not None :
+                current = self.head.next
+                while current.next is not None :
+                    if type(current.value) is type(thing) :
+                        filteredList.add(current.value)
+                    current = current.next
 
-
-
+        return filteredList
