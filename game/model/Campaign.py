@@ -1,9 +1,11 @@
 from model.Queue import Queue
+from model.Stack import Stack
 from game.model.Player import Player
 from game.model.Facility import *
 from game.model.Facility import _Facility
 from game.view.prompt import *
 from game.model.Soldier import *
+from game.model.TechnologyTree import TechnologyTree
 from typing import cast
 
 class Campaign :
@@ -134,8 +136,46 @@ class Campaign :
 			self.currentPlayer.resources.sub(facility.cost)
 			self.promptFacilities()
 	
-	def promptTechnologies(self) -> None :
-		print("Affiche les technologies")
+	def promptTechnologies(self) -> None:
+		"""
+		Displays the tree in a little menu that lets the player simply navigate through it, 
+		read information about Technologies he has access to, or unlock new ones.
+		author : Nathan
+		"""
+
+		tree = self.currentPlayer.technoTree
+
+		node = tree.root
+		nodeStack = Stack()
+		done = False
+
+		while not done:
+			maxSelection = node.children.len + 1
+			if not nodeStack.isEmpty():
+				maxSelection += 1
+
+			self.promptStatus("CITE / TECHNOLOGIES")
+				
+			select = userInputInt(node.getPrintableDescAndChildren(not nodeStack.isEmpty()), 0, maxSelection)
+			# Quit option
+			if select == 0:
+				done = True
+
+			# Accessing any technology
+			if (select <= node.children.len):
+				nodeStack.push(node)
+				node = node.children.get(select - 1)
+
+			# Unlocking a technology if it is buyable
+			elif select == node.children.len + 1 and node.isBuyable():
+				#node.buy(self.player)
+				# TODO buy node here
+				pass
+
+			# Going back to the parent
+			else:
+				node = nodeStack.pop()
+		self.board()
 
 	def promptArmy(self) -> None :
 		self.promptStatus("CITE / ARMEE")

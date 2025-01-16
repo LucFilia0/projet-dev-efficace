@@ -6,18 +6,14 @@ def clear() -> None :
 def padNumber(number : int, padding : int) -> str :
 	return str(number).zfill(padding)
 
-def selectOnlyInt(line : str) -> int :
-	i = "0"
-	for c in line :
-		if 47 < ord(c) and ord(c) < 58 :
-			i += c
-	return int(i)
-
 def userInputInt(msg : str, min : int, max : int) -> int :
 	quit = False
 	print("\n" + msg)
 	while not quit :
-		ret = selectOnlyInt(input(">> "))
+		try:
+			ret = int(input(">> "))
+		except:
+			ret = min - 1
 		if ret < min or max < ret :
 			print(f"-- Entrez une valeur entre {min} et {max}")
 		else :

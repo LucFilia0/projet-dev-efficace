@@ -5,26 +5,36 @@
         "type" : "TextNode",
         "children" : [
             {
-                "name" : "TestNode",
-                "desc" : "Wtf maaaaan",
-                "type" : "BuyableNode",
-                "cost" : 12,
+                "name" : "Voie des Armées",
+                "desc" : "Agrandissez votre armée afin de vous protéger de vos adversaires, voir même les attaquer...",
+                "type" : "TextNode",
                 "children" : [
-                    {
-                        "name" : "Bagarre",
-                        "desc" : "destruction",
-                        "type" : "TextNode",
-                        "children" : []
 
-                    }
                 ]
             },
             {
-                "name" : "TestNode2",
-                "desc" : "BROOOOOOO",
-                "type" : "BuyableNode",
-                "cost" : 14,
-                "children" : []
+                "name" : "Voie du Culte",
+                "desc" : "Augmentez l'influence de l'Eglise à travers votre cité. Choisissez parmi un des trois dieux et prouvez lui votre foi.",
+                "type" : "TextNode",
+                "children" : [
+
+                ]
+            },
+            {
+                "name" : "Voie du Développement",
+                "desc" : "Développez vos infrastructures ainsi que vos habitations pour permettre à votre cité de prospérer.",
+                "type" : "TextNode",
+                "children" : [
+                    {
+                        "name" : "Testing",
+                        "desc" : "Test",
+                        "type" : "BuyableNode",
+                        "cost" : 12,
+                        "children" : [
+        
+                        ]
+                    }
+                ]
             }
         ]
     }

@@ -33,7 +33,14 @@ class Resources:
         return ret
     
     def isGreaterOrEqualThan(self, resources) -> bool :
-        return self.domination >= resources.domination and self.wealth >= resources.wealth and self.knowledge >= resources.knowledge and self.gold >= resources.gold and self.wood >= resources.wood and self.stone >= resources.stone and self.iron >= resources.iron and self.food >= resources.food
+        return (self.domination >= resources.domination 
+            and self.wealth >= resources.wealth 
+            and self.knowledge >= resources.knowledge 
+            and self.gold >= resources.gold 
+            and self.wood >= resources.wood 
+            and self.stone >= resources.stone 
+            and self.iron >= resources.iron 
+            and self.food >= resources.food)
 
     def add(self, resources) -> None :
         if(resources is not None) :

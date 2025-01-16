@@ -1,4 +1,3 @@
-from game.model.Player import Player
 from typing import Self
 from model.List import List
 from colorama import Fore, Style
@@ -6,11 +5,17 @@ from colorama import Fore, Style
 from model.Stack import Stack
 
 class TreeNode:
+    """
+    Abstract Node, inherited by any node that will be contained in the tree.
+    Contains the essential methods and attributes all nodes need.
+    author : Nathan
+    """
+    
     def __init__(self, name : str, desc : str):
         self.name = name
         self.desc = desc
         self.children = List()
-        self.unlocked = False
+        self.unlocked = True
 
     def addChild(self, node):
         self.children.add(node)
@@ -18,15 +23,32 @@ class TreeNode:
     def nbChild(self) -> int:
         return self.children.len
     
-    def printNodeAndChildren(self, layer : int) -> None:
-        print('-'*layer + str(self))
+    def isBuyable(self) -> bool:
+        return False
+    
+    def printNodeAndChildren(self, layer : int, color=Fore.WHITE) -> None:
+        """
+        Recursively prints the tree in a readable way
+        author : Nathan
+        """
+        
+        print(Fore.WHITE, '-'*layer, sep="", end="")
+        print(color, str(self), sep="")
         nodeQueue = self.children.getValuesInRange()
         node = nodeQueue.pop()
         while (node is not None):
             node.printNodeAndChildren(layer+1)
             node = nodeQueue.pop()
+        print(Style.RESET_ALL, sep="", end="")
 
     def addChildrenRecur(self, data : dict):
+        """
+        Generates a node from the data contained in a dictionnary
+        (extracted from a json).
+        The node will then create its children, until the tree is entirely filled.
+        author : Nathan
+        """
+
         from game.model.techno_tree.NodeFactory import NodeFactory
         childrenList = data["children"]
         for nodeData in childrenList:
@@ -36,6 +58,44 @@ class TreeNode:
 
     def __str__(self):
         return self.name
+    
+    def getPrintableDescAndChildren(self, hasPrevious : bool) -> str:
+        """
+        Returns a string containing the selection menu relative to every Node
+        The menu has a quit option,
+        Then an option to access every child,
+        If it can be unlocked, it will have an option "Débloquer",
+        And finally, if it has a parent, will have an option "Retour", to go back to it.
+        author : Nathan
+        """
+        
+        ret = str(self) + " : " + '\n'
+        ret += self.desc + '\n\n'
+        ind = 1
+        
+        if self.isBuyable():
+            ret += f"{Fore.RED}Vous devez débloquer cette Technologie pour consulter ses débouchés.\nCoût : {self.cost}\n{Style.RESET_ALL}"
+        elif (self.children.len == 0):
+            ret += "Cette technologie ne débloque rien d'autre\n"
+        
+        ret += f"[{ind - 1}] Quitter\n"
+        while (ind <= self.children.len):
+            node = self.children.get(ind - 1)
+            if node.unlocked:
+                ret += f"[{ind}] {node}\n"
+            else:
+                ret += f"{Fore.RED}[{ind}] {node}{Style.RESET_ALL}\n"
+            ind += 1
+
+        if self.isBuyable():
+            ret += f"{Fore.GREEN}[{ind}] Débloquer{Style.RESET_ALL}\n"
+            ind += 1
+
+        if hasPrevious:
+            ret += f"[{ind}] Retour\n"
+            ind += 1
+
+        return ret
     
     def findDirectChild(self, name) -> Self:
         i = 0
@@ -56,23 +116,34 @@ class TreeNode:
             nodeList = node.children.getValuesInRange()
             for node in nodeList:
                 stack.push(node)
-                
+
 class TextNode(TreeNode):
+    """
+    Node that will only contain text, used for giving information, cannot be bought
+    author : Nathan
+    """                
     def __init__(self, name: str, desc: str):
         super().__init__(name, desc)
 
 class BuyableNode(TreeNode):
+    """
+    Abstract Node inherited by all nodes which can be unlocked 
+    """
     def __init__(self, name : str, desc : str, cost : int):
         super().__init__(name, desc)
+        self.unlocked = False
         self.cost = cost
 
-    def buy(self, player : Player) -> bool:
+    def buy(self, player) -> bool:
         if player.resources.knowledge >= self.cost:
             player.resources.knowledge -= self.cost
             self.unlocked = True
             return True
             # TODO Fire unlocked event
         return False
+    
+    def isBuyable(self) -> bool:
+        return not self.unlocked
 
     def printNode(self) -> None:
         print(self.name.center(30, "="))
