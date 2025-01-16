@@ -19,7 +19,7 @@ class Campaign :
 		self.maxTurn = 0
 	
 	def addPlayer(self, player : Player) -> None :
-		player.loadStartingResources()
+		player.createStartingFacilities()
 		self.playerQueue.push(player)
 	
 	def nextPlayer(self) -> None :

@@ -12,12 +12,12 @@ class TreeNode:
     """
     
     def __init__(self, name : str, desc : str):
-        self.name = name
-        self.desc = desc
-        self.children = List()
-        self.unlocked = True
+        self.name       :str        = name
+        self.desc       :str        = desc
+        self.children   :List       = List()
+        self.unlocked   :bool       = True
 
-    def addChild(self, node):
+    def addChild(self, node) -> None :
         self.children.add(node)
 
     def nbChild(self) -> int:

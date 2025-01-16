@@ -6,6 +6,13 @@ def clear() -> None :
 def padNumber(number : int, padding : int) -> str :
 	return str(number).zfill(padding)
 
+def generateMenu(data : dict) -> str :
+	menu = ""
+
+	
+
+	return menu
+
 def userInputInt(msg : str, min : int, max : int) -> int :
 	quit = False
 	print("\n" + msg)
