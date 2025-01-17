@@ -337,6 +337,17 @@ class List:
         
         return ret + " ]"
     
+    def reverseStr(self) -> str:
+        ret = "["
+        current = self.tail
+        while (current is not None):
+            ret += f" {current.value}"
+            current = current.prev
+            if (current is not None):
+                ret += ","
+        
+        return ret + " ]"
+    
     def printReverse(self):
         current = self.tail
         while (current is not None):

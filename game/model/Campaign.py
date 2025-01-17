@@ -206,35 +206,6 @@ class Campaign :
 		self.currentPlayer.city.addSoldier(troup)
 		self.promptArmy()
 
-	def fight(player1Units : List, player2Units : List):
-
-		_Troup.initCorrectPosition(player1Units)
-		_Troup.initCorrectPosition(player2Units)
-
-		while not player1Units.len == 0 or player2Units.len == 0:
-			p1Ind = 0
-			p2Ind = 0
-
-			while p1Ind < player1Units.len and p2Ind < player2Units.len:
-				p1Unit : _Troup = player1Units.get(p1Ind)
-				p2Unit : _Troup = player2Units.get(p2Ind)
-
-				p1Unit.lowerDurationOfBuffs()
-				p2Unit.lowerDurationOfBuffs()
-				if p1Unit.stats.speed > p2Unit.stats.speed or (p1Unit.stats.speed == p2Unit.stats.speed and random.randint(0, 1) == 0):
-					order = ((p1Unit, player1Units), (p2Unit, player2Units))
-				else:
-					order = ((p2Unit, player2Units), (p1Unit, player1Units))
-
-				order[0][0].doAction(order[0][1], order[1][1])
-				p1Ind += 1
-				if (order[1][0].hp > 0):
-					order[1][0].doAction(order[1][1], order[0][1])		
-					p2Ind += 1
-
-				print(p1Unit.stats)
-				print(p2Unit.stats)
-
 	def endTurn(self) -> None :
 		screen("FINIR LE TOUR ?")
 		q = userInputInt("[0] Retour\n[1] Terminer", 0, 1)
