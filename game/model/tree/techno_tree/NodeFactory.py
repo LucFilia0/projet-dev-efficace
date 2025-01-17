@@ -6,7 +6,7 @@ class NodeFactory:
         desc = nodeData["desc"]
         match nodeData["type"]:
             case "TreeNode":
-                return TreeNode(name, desc)     
+                return TreeNode(name, desc)
             case "BuyableNode":
                 return BuyableNode(name, desc, nodeData["cost"])
             case "TextNode":

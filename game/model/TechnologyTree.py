@@ -32,7 +32,7 @@ class TechnologyTree:
         author : Nathan
         """ 
 
-        with open(os.getcwd() + "/data/tree.json") as tree_file:
+        with open(os.getcwd() + "/data/technology.json") as tree_file:
             tree_data = json.load(tree_file)
             root = dict.get(tree_data, "root")
             if root is None:

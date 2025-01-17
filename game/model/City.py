@@ -26,8 +26,27 @@ class City :
 	def checkPopulation(self) -> bool :
 		return self.population < self.maxPopulation
 
-	def containsBaracks(self) -> bool :
-		return self.facilities.containsInstanceOf(Baracks())
+	def contains(self, thing : str) -> bool :
+		match(thing):
+			case "Habitation":
+				facility = Habitation()
+			case "Ferme":
+				facility = Farm()
+			case "Caserne" :
+				facility = Baracks()
+			case "Mine" :
+				facility = Mine()
+			case "Forge" :
+				facility = Forge()
+			case "Scierie" :
+				facility = SawMill()
+			case "Cabane de chasseur" :
+				facility = HunterHood()
+			case "Temple" :
+				facility = Temple()
+			case "Autel" :
+				facility = Altar()
+		return self.facilities.containsInstanceOf(facility)
 
 	def promptBaracks(self) -> None :
 		baracks = self.facilities.onlyInstanceOf(Baracks())

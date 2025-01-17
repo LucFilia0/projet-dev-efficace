@@ -1,0 +1,141 @@
+{
+    "root" : {
+        "name" : "root",
+        "title" : "CITE",
+        "desc" : "Bienvenue dans votre cité !",
+        "callback" : null,
+        "required" : null,
+        "type" : "ActionNode",
+        "children" : [
+            {
+                "name" : "Bâtiments",
+                "title" : "CITE > BATIMENTS",
+                "desc" : "Liste de vos bâtiments :",
+                "callback" : "promptFacilities",
+                "required" : null,
+                "type" : "ActionNode",
+                "children" : [
+                    {
+                        "name" : "Construire",
+                        "title" : "CITE > BATIMENTS > CONSTRUIRE",
+                        "desc" : "Liste des bâtiments constructibles :",
+                        "callback" : null,
+                        "required" : null,
+                        "type" : "ActionNode",
+                        "children" : [
+                            {
+                                "name" : "Habitation",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > HABITATION",
+                                "desc" : "Habitation :",
+                                "callback" : "buildFacility",
+                                "required" : null,
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Ferme",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > FERME",
+                                "desc" : "Ferme :",
+                                "callback" : "buildFacility",
+                                "required" : null,
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Caserne",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > CASERNE",
+                                "desc" : "Caserne :",
+                                "callback" : "buildFacility",
+                                "required" : ["Renforcement", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Mine",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > MINE",
+                                "desc" : "Mine :",
+                                "callback" : "buildFacility",
+                                "required" : ["Minage", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Forge",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > FORGE",
+                                "desc" : "Forge :",
+                                "callback" : "buildFacility",
+                                "required" : ["Forge", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Cabane de chasseur",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > CBN CHASS",
+                                "desc" : "Cabane de chasseur :",
+                                "callback" : "buildFacility",
+                                "required" : ["Chasse", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Temple",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > TEMPLE",
+                                "desc" : "Temple :",
+                                "callback" : "buildFacility",
+                                "required" : ["Foi", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Autel",
+                                "title" : "CITE > BATIMENTS > CONSTRUIRE > AUTEL",
+                                "desc" : "Autel :",
+                                "callback" : "buildFacility",
+                                "required" : ["Allégeance", null],
+                                "type" : "ActionNode",
+                                "children" : []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name" : "Technologies",
+                "title" : "CITE > TECHNOLOGIES",
+                "desc" : "Apprenez de nouvelles technologies et développez votre cité :",
+                "callback" : "technologyTreeNavigate",
+                "required" : null,
+                "type" : "ActionNode",
+                "children" : []
+            },
+            {
+                "name" : "Armée",
+                "title" : "CITE > ARMEE",
+                "desc" : "Liste des troupes :",
+                "callback" : "promptTroups",
+                "required" : ["Renforcement", "Caserne"],
+                "type" : "ActionNode",
+                "children" : [
+                    {
+                        "name" : "Former des troupes",
+                        "title" : "CITE > ARMEE",
+                        "desc" : "Liste des troupes formables :",
+                        "callback" : null,
+                        "required" : null,
+                        "type" : "ActionNode",
+                        "children" : []
+                    }
+                ]
+            },
+            {
+                "name" : "Divinité",
+                "title" : "CITE > DIVINITE",
+                "desc" : "Prêtez allégeance à une divinité, et obtenez sa bénédiction :",
+                "callback" : null,
+                "required" : ["Allégeance", "Autel"],
+                "type" : "ActionNode",
+                "children" : []
+            }
+        ]
+    }
+}

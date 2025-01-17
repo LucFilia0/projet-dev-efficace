@@ -28,8 +28,7 @@ class _Facility :
 		Prompts detailed informations about the facility
 		"""
 		print(
-			f"{self.name}\n\n"
-			f"Coût :                    [ {self.cost}]\n"
+			f"\nCoût :                    [ {self.cost}]\n"
 			f"Gain :                    [ {self.gain}] / {self.frequency} tour(s)\n"
 		)
 	

@@ -5,7 +5,7 @@ from game.view.prompt import *
 
 # TODO Remove when not needed anymore
 def test() -> None :
-	cam = Campaign()
+	cam = Campaign.getInstance()
 	cam.name = "La guerre des zikettes"
 	cam.maxTurn = 20
 	player1 = Player()
