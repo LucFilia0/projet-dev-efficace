@@ -1,8 +1,13 @@
-from game.model.Facility import _Facility, Habitation, Farm
+from game.model.Facility import _Facility, Habitation, Farm, Baracks
 from game.model.Resources import Resources
 from game.model.tree.Tree import TechnologyTree, ActionTree
 from game.model.tree.TreeNode import TechnologyNode
 from game.view.prompt import userInputInt, promptStatus
+from game.model.Fight import Fight
+from game.model.Troups import _Troup
+from game.model.Troups import UnitGroup
+from model.List import List
+from game.model.Campaign import Campaign
 
 class Player :
 	"""
@@ -14,9 +19,10 @@ class Player :
 		self.name = None
 		self.city = None
 		self.resources = Resources(wood=10, stone=5, food=10, knowledge=3) #Starting resources
+		self.troups = List()
 		self.technoTree = TechnologyTree(self)
 		self.actionTree = ActionTree(self)
-		self.bonus = Resources()
+		self.bonus = Resources(knowledge=1)
 	
 	def __str__(self) -> str :
 		return self.name
@@ -24,6 +30,8 @@ class Player :
 	def startTurn(self) -> None :
 		promptStatus(None)
 		userInputInt(f"À toi de jouer, {self.name} !\n[0] Commencer", 0, 0)
+		self.collectResources()
+		self.consumeFood()
 		self.actionTree.navigate()
 
 	# RESOURCES
@@ -44,7 +52,7 @@ class Player :
 				self.city.maxPopulation += gain # Case of habitations
 			else :
 				self.resources.add(gain)
-			self.resources.knowledge += 1
+			self.resources.add(self.bonus)
 	
 	def consumeFood(self) -> bool :
 		"""
@@ -89,4 +97,60 @@ class Player :
 	# ARMY
 
 	def promptTroups(self) -> None :
-		baracks = self.city.promptBaracks()
+		baracks = self.city.facilities.onlyInstanceOf(Baracks())
+		for i in range(self.troups.len) :
+			print(self.troups.get(i).summary())
+
+	def canAddTroup(self) -> bool : 
+		nbBaracks = self.city.facilities.onlyInstanceOf(Baracks()).len
+		if 4 * nbBaracks - self.troups.len > 0 :
+			return True
+		return False
+
+	def addTroup(self, troup : _Troup) -> None :
+		print(troup.details())
+		if not self.city.checkPopulation() :
+			choice = userInputInt("Former cette unité ?\n[0] Retour\n[X] Former (Population max déjà atteinte)", 0, 0)
+		elif not self.canAddTroup() :
+			choice = userInputInt("Former cette unité ?\n[0] Retour\n[X] Former (Construisez plus de casernes)", 0, 0)
+		else :
+			choice = userInputInt("Former cette unité ?\n[0] Retour\n[1] Former", 0, 1)
+
+		if choice == 1 :
+			if self.canAddTroup() and self.resources.isGreaterOrEqualThan(troup.cost) :
+				self.troups.add(troup)
+				self.resources.sub(troup.cost)
+				self.city.population += 1
+	
+	def declareWar(self) -> None :
+		cam = Campaign.getInstance()
+		q = cam.playerQueue
+		l = List()
+		length = q.size()
+		for i in range(length) :
+			tmp = q.pop()
+			l.add(tmp)
+			q.push(tmp)
+		promptStatus("CITE > ARMEE > GUERRE")
+		print("[0] Retour")
+		for i in range(length) :
+			print(f"[{i+1}] {l.get(i)}")
+		choice = userInputInt("", 0, length)
+
+		if choice > 0 :
+
+			enemy = l.get(choice - 1)
+			fight = Fight(UnitGroup(self.troups), UnitGroup(enemy.troups))
+
+			if fight.fight() == 1 :
+				winner = self
+				loser = enemy
+			else :
+				winner = enemy
+				loser = enemy
+
+			promptStatus("FIN DE BATAILLE")
+			print(f"{winner} a gagné cette bataille !\n{winner} +10 DOM\n{loser} +2 DOM")
+
+			winner.resources.domination += 10
+			loser.resources.domination += 2

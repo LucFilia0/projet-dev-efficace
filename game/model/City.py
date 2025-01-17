@@ -1,7 +1,6 @@
 from model.List import List
 from game.model.Facility import _Facility
-from game.model.Facility import Baracks
-from game.model.Facility import Habitation
+from game.model.Facility import *
 from game.model.Troups import _Troup
 
 class City :
@@ -48,14 +47,6 @@ class City :
 				facility = Altar()
 		return self.facilities.containsInstanceOf(facility)
 
-	def promptBaracks(self) -> None :
-		baracks = self.facilities.onlyInstanceOf(Baracks())
-		for i in range(baracks.len) :
-			b = baracks.get(i)
-			print(f"Caserne | {b.troups.len}/4")
-			for j in range(b.troups.len) :
-				print(f"\t{b.troups.get(j)}")
-	
 	def returnFirstAvailableBaracks(self) -> Baracks|None :
 		baracks = self.facilities.onlyInstanceOf(Baracks())
 		firstBaracks = None

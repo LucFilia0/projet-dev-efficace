@@ -53,29 +53,7 @@
                         "desc" : "Apprenez à construire un autel, et prêtez allégeance à une divinité.",
                         "type" : "TechnologyNode",
                         "cost" : 3,
-                        "children" : [
-                            {
-                                "name" : "Démeter",
-                                "desc" : "Déesse de la fertilité, aportera joie et prospérité à votre cité.",
-                                "type" : "TechnologyNode",
-                                "cost" : 0,
-                                "children" : []
-                            },
-                            {
-                                "name" : "Arès",
-                                "desc" : "Dieu de la guerre, il saura vous apporter la victoire, ainsi que la tête de vos ennemis.",
-                                "type" : "TechnologyNode",
-                                "cost" : 0,
-                                "children" : []
-                            },
-                            {
-                                "name" : "Athéna",
-                                "desc" : "Déesse de la connaissance et de la stratégie guerrière, vous apportera un futur glorieux.",
-                                "type" : "TechnologyNode",
-                                "cost" : 0,
-                                "children" : []
-                            }
-                        ]
+                        "children" : []
                     }
                 ]
             },
@@ -97,7 +75,9 @@
                         "desc" : "Apprenez à frapper le métal, et améliorez vos unités.",
                         "type" : "TechnologyNode",
                         "cost" : 3,
-                        "children" : []
+                        "children" : [
+                            
+                        ]
                     }
                 ]
             }

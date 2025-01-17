@@ -5,6 +5,7 @@ from model.Queue import Queue
 from model.List import List
 from typing import Self
 from colorama import Fore, Style
+from game.model.Resources import Resources
 
 class UnitGroup:
     def __init__(self, units : List):
@@ -104,7 +105,6 @@ class _Troup:
 
     defaultStats : Stat = Stat()
     maxUnitCount : int = 0
-    cost : int = 0
     skillUnlocked : bool = True
     skillName : str = ""
     messages : dict[str, str] = {
@@ -115,10 +115,11 @@ class _Troup:
         "knockback" : "{0} a pris {1} dégats de contrecoup"
     }
 
-    def __init__(self, name, desc):
+    def __init__(self, name, desc, cost):
         self.stats : Stat = Stat.createFromOther(self.__class__.defaultStats) 
         self.name = name
         self.desc = desc
+        self.cost = cost
         self.currentBuffs : Stat = Stat()
         self.hp : int = self.stats.health
         self.skillCounter : int = 0
@@ -145,6 +146,15 @@ class _Troup:
     
     def __str__(self):
         return f"{self.name}"
+    
+    def summary(self) -> str :
+        return f"{self.name.ljust(15)}{self.hp}/{self.stats.health} PV"
+
+    def details(self) -> str :
+        return (
+            f"Coût :          [ {self.cost}]\n"
+            f"Vie :           {self.hp}/{self.stats.health} PV"
+        )
 
     def positionStr(self):
         return f"{self.name}[{self.position}]"
@@ -270,7 +280,7 @@ class Archer(_Troup):
     skillName = "Killer Arrow"
 
     def __init__(self):
-        super().__init__("Archer", "Unité attaquant à distance capable d'éliminer les ennmis à l'arrière.")
+        super().__init__("Archer", "Unité attaquant à distance capable d'éliminer les ennmis à l'arrière.", Resources(wood=2, food=2))
 
     def __str__(self):
         return super().__str__()
@@ -318,7 +328,7 @@ class Warrior(_Troup):
     skillName = "Berserk Slash"
 
     def __init__(self):
-        super().__init__("Guerrier", "Combattant au corps à corps gagnant en puissance quand il est affaibli.")
+        super().__init__("Guerrier", "Combattant au corps à corps gagnant en puissance quand il est affaibli.", Resources(wood=2, food=2))
 
     def __str__(self):
         return super().__str__()
@@ -352,7 +362,7 @@ class Lancer(_Troup):
     skillName = "Flurry Attack"
 
     def __init__(self):
-        super().__init__("Lancier", "Combattant au corps à corps avec une plus grande portée.")
+        super().__init__("Lancier", "Combattant au corps à corps avec une plus grande portée.", Resources(wood=2, stone=1, food=2))
 
     def __str__(self):
         return super().__str__()
@@ -366,19 +376,12 @@ class Lancer(_Troup):
                 enemy.loseHP(self.computeAttack(self.skillDamage), True, enemies, allies, self, queue)
         queue.push(_Troup.messages.get("skill2").format(self.positionStr(), self.skillName, damage))
             
+class Rider(_Troup) :
 
+    defaultStats = Stat(6, 3, 2, 3, 3, 2)
+    maxUnitCount = 2
+    skillDamage = 1
+    skillName = "Flurry Attack"
 
-if __name__ == "__main__":
-    allies = List()
-    enemies = List()
-    allies.add(Warrior())
-    allies.add(Archer())
-    allies.add(Archer())
-    allies.add(Archer())
-    enemies.add(Warrior())
-    enemies.add(Lancer())
-    enemies.add(Archer())
-    enemies.add(Archer())
-
-
-    
+    def __init__(self):
+        super().__init__("Cavalier", "Combattant en armure et à cheval. Wallou", Resources(wood=2, food=4, iron=3))

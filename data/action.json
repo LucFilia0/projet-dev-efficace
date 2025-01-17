@@ -118,10 +118,74 @@
                 "children" : [
                     {
                         "name" : "Former des troupes",
-                        "title" : "CITE > ARMEE",
+                        "title" : "CITE > ARMEE > FORMER",
                         "desc" : "Liste des troupes formables :",
                         "callback" : null,
                         "required" : null,
+                        "type" : "ActionNode",
+                        "children" : [
+                            {
+                                "name" : "Guerrier",
+                                "title" : "CITE > ARMEE > FORMER > GUERRIER",
+                                "desc" : "Guerrier :\nUnité résistante de combat rapproché.",
+                                "callback" : "addTroup",
+                                "required" : null,
+                                "type" : "ActionNode",
+                                "children" : []
+                            },
+                            {
+                                "name" : "Archer",
+                                "title" : "CITE > ARMEE > FORMER > ARCHER",
+                                "desc" : "Archer :\nUnité à distance. Attaque en priorité les unités au fond du champs de bataille.",
+                                "callback" : "addTroup",
+                                "type" : "ActionNode",
+                                "required" : null,
+                                "children" : []
+                            },
+                            {
+                                "name" : "Lancier",
+                                "title" : "CITE > ARMEE > FORMER > LANCIER",
+                                "desc" : "Lancier :\nUnité de combat rapproché pouvant néanmoins attaquer.",
+                                "callback" : "addTroup",
+                                "type" : "ActionNode",
+                                "required" : null,
+                                "children" : []
+                            },
+                            {
+                                "name" : "Cavalier",
+                                "title" : "CITE > ARMEE > FORMER > CAVALIER",
+                                "desc" : "Cavalier :\nUnité de combat puissante et résistante.",
+                                "callback" : "addTroup",
+                                "type" : "ActionNode",
+                                "required" : ["Forge", "Forge"],
+                                "children" : []
+                            },
+                            {
+                                "name" : "Prêtre",
+                                "title" : "CITE > ARMEE > FORMER > PRETRE",
+                                "desc" : "Prêtre :\nUnité de combat apportant la bénédiction de votre dieu sur le champs de bataille.",
+                                "callback" : "addTroup",
+                                "type" : "ActionNode",
+                                "required" : ["Dévouement", null],
+                                "children" : []
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "Déclarer la guerre",
+                        "title" : "CITE > ARMEE > GUERRE",
+                        "desc" : "Partir en guerre :",
+                        "callback" : "declareWar",
+                        "required" : null,
+                        "type" : "ActionNode",
+                        "children" : []
+                    },
+                    {
+                        "name" : "Forge",
+                        "title" : "CITE > ARMEE > FORGE",
+                        "desc" : "Améliorer les unités :",
+                        "callback" : null,
+                        "required" : ["Forge", "Forge"],
                         "type" : "ActionNode",
                         "children" : []
                     }

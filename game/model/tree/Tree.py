@@ -6,6 +6,7 @@ from game.model.tree.TreeNode import _TreeNode
 from game.model.tree.TreeNode import *
 from game.model.Campaign import *
 from game.model.Facility import *
+from game.model.Troups import *
 
 from game.view.prompt import *
 
@@ -160,6 +161,7 @@ class ActionTree(_Tree) :
 
             case "buildFacility" :
                 match(node.name) :
+
                     case "Habitation" :
                         facility = Habitation()
                     case "Ferme" :
@@ -183,6 +185,27 @@ class ActionTree(_Tree) :
                 promptStatus(node.title)
                 print(node.desc)
             
+            case "addTroup" :
+                match(node.name) :
+
+                    case "Guerrier" :
+                        troup = Warrior()
+                    case "Archer" :
+                        troup = Archer()
+                    case "Lancier" :
+                        troup = Lancer()
+                    case "Cavalier" :
+                        troup = Rider()
+                    case "Prêtre" :
+                        pass
+                        # troup = Priest()
+                
+                if self.player.canAddTroup() :
+                    self.player.addTroup(troup)
+
+                promptStatus(node.title)
+                print(node.desc)
+            
             case "promptTroups" :
                 self.player.promptTroups()
             
@@ -190,3 +213,6 @@ class ActionTree(_Tree) :
                 self.player.technoTree.navigate()
                 promptStatus(node.title)
                 print(node.desc)
+            
+            case "declareWar" :
+                self.player.declareWar()

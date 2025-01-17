@@ -44,6 +44,14 @@ class _Facility :
 				self.state += 1
 				return None
 
+class _NonRentableFacility(_Facility) :
+
+	def __init__(self, name : str, cost : Resources|None) :
+		super().__init__(name, cost, None, 0)
+	
+	def getGain(self) -> Resources|int|None :
+		return None
+
 class Farm(_Facility) :
 
 	def __init__(self) :
@@ -61,17 +69,11 @@ class Habitation(_Facility) :
 			return 4
 		return None
 
-class Baracks(_Facility) :
+class Baracks(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Caserne", None, None, 0)
-		self.troups = List()
-
-	def getGain(self) -> Resources|int|None :
-		return None
-	
-	def promptTroups() -> None :
-		print(f"Barack | CAP {self.troups.len}/4")
+		super().__init__("Caserne", None)
+		self.troups = 0
 
 class Mine(_Facility) :
 
@@ -83,10 +85,10 @@ class Mine(_Facility) :
 	def getGain(self) -> Resources|int|None :
 		return Resources(stone=self.stoneRatio, iron=self.stoneRatio)
 
-class Forge(_Facility) :
+class Forge(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Forge", None, None, 0)
+		super().__init__("Forge", None)
 
 class Sawmill(_Facility) :
 
@@ -103,7 +105,7 @@ class Temple(_Facility) :
 	def __init__(self) :
 		super().__init__("Temple", None, Resources(knowledge=2), 1)
 
-class Altar(_Facility) :
+class Altar(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Autel", None, None, 0)
+		super().__init__("Autel", None)
