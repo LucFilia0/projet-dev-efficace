@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 from game.model.Facility import _Facility
 from game.model.Facility import Habitation
 from game.model.Facility import Farm
 from model.List import List, ListDeCon
 from game.view.prompt import padNumber
-=======
-from game.model.Facility import _Facility, Habitation, Farm
->>>>>>> 49933fe (Save avant le retour du grand Terrassement)
 from game.model.Resources import Resources
 from game.model.TechnologyTree import TechnologyTree
 
@@ -21,14 +17,9 @@ class Player :
 		self.city = None
 		self.resources = Resources(wood=10, stone=5, food=10, knowledge=3)
 		self.technoTree = TechnologyTree(self)
-<<<<<<< HEAD
 		self.unlockedTroups = List()
-		self._initBonusGains()
+		self.bonus = Resources()
 		
-=======
-		self.bonus = resources()
-	
->>>>>>> 49933fe (Save avant le retour du grand Terrassement)
 	def __str__(self) -> str :
 		return self.name
 

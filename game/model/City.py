@@ -2,7 +2,7 @@ from model.List import List
 from game.model.Facility import _Facility
 from game.model.Facility import Baracks
 from game.model.Facility import Habitation
-from game.model.Troups import _Soldier
+from game.model.Troups import _Troup
 
 class City :
 
@@ -48,8 +48,8 @@ class City :
 			i += 1
 		return firstBaracks
 
-	def addSoldier(self, soldier : _Soldier) -> None :
+	def addTroup(self, troup : _Troup) -> None :
 		b = self.returnFirstAvailableBaracks()
 		if b is not None and self.checkPopulation() :
-			b.troups.add(soldier)
+			b.troups.add(troup)
 			self.population += 1

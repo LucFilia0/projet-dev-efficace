@@ -8,8 +8,6 @@ from colorama import Fore, Style
 
 from model.Queue import Queue
 
-
-
 class Fight:
 
     def __init__(self, player1Units : UnitGroup, player2Units : UnitGroup):
