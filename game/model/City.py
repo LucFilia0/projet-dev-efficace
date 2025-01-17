@@ -2,7 +2,7 @@ from model.List import List
 from game.model.Facility import _Facility
 from game.model.Facility import Baracks
 from game.model.Facility import Habitation
-from game.model.Soldier import _Soldier
+from game.model.Troups import _Soldier
 
 class City :
 

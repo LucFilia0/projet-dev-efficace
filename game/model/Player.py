@@ -1,7 +1,7 @@
 from game.model.Facility import _Facility
 from game.model.Facility import Habitation
 from game.model.Facility import Farm
-from model.List import ListDeCon
+from model.List import List, ListDeCon
 from game.view.prompt import padNumber
 from game.model.Resources import Resources
 from game.model.TechnologyTree import TechnologyTree
@@ -13,8 +13,9 @@ class Player :
 		self.city = None
 		self.resources = Resources()
 		self.technoTree = TechnologyTree(self)
+		self.unlockedTroups = List()
 		self._initBonusGains()
-	
+		
 	def __str__(self) -> str :
 		return self.name
 

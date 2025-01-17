@@ -17,7 +17,7 @@ class TechnologyTree:
 
     def __init__(self, player):
         self.root : TreeNode = None
-        self.player : Player = player
+        self.player  = player
         self.buildTree()
 
 
@@ -57,5 +57,4 @@ class TechnologyTree:
 if __name__ == "__main__":
     tree = TechnologyTree(None)
     tree.buildTree()
-    tree.navigateTree()
         

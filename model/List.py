@@ -197,7 +197,7 @@ class List:
 
     def isEmpty(self):
         return (self.len == 0)
-
+    
     def add(self, value, index=0) -> bool:
         if index > self.len or index < 0:
             return False
@@ -227,6 +227,9 @@ class List:
 
         self.len += 1
         return True
+    
+    def append(self, value):
+        self.add(value, self.len)
     
     def get(self, index):
         node = self.getNode(index)

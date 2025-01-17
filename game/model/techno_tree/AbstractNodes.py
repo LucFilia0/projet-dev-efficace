@@ -50,8 +50,8 @@ class TreeNode:
         """
 
         from game.model.techno_tree.NodeFactory import NodeFactory
-        childrenList = data["children"]
-        for nodeData in childrenList:
+        children = data["children"]
+        for nodeData in children:
             node = NodeFactory.create(nodeData)
             self.addChild(node)
             node.addChildrenRecur(nodeData)
@@ -99,8 +99,9 @@ class TreeNode:
     
     def findDirectChild(self, name) -> Self:
         i = 0
-        nodeList = self.children.getValuesInRange()
-        for node in nodeList:
+        nodeQueue = self.children.getValuesInRange()
+        while not nodeQueue.isEmpty():
+            node = nodeQueue.pop()
             if (node.name == name):
                 return node
             i += 1

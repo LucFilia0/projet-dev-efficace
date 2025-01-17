@@ -1,10 +1,11 @@
+from game.model.Troups import _Troup, Lancer, Archer, Warrior
 from model.Queue import Queue
 from model.Stack import Stack
 from game.model.Player import Player
 from game.model.Facility import *
 from game.model.Facility import _Facility
 from game.view.prompt import *
-from game.model.Soldier import *
+from game.model.Troups import *
 from game.model.TechnologyTree import TechnologyTree
 from typing import cast
 
@@ -188,24 +189,51 @@ class Campaign :
 			choice = userInputInt("[0] Retour\n[1] Former des soldats", 0, 1)
 		match(choice) :
 			case 1 :
-				self.formSoldier()
+				self.formTroup()
 			case _ :
 				self.board()
 
-	def formSoldier(self) -> None :
+	def formTroup(self) -> None :
 		self.promptStatus("CITE / ARMEE / FORMER")
 		choice = userInputInt("[0] Retour\n[1] Former un guerrier\n[2] Former un archer\n[3] Former un garde", 0, 3)
 		match(choice) :
 			case 0 :
 				self.promptArmy()
 			case 1 :
-				soldier = Warrior()
+				troup = Warrior()
 			case 2 :
-				soldier = Archer()
-			case 3 :
-				soldier = Garde()
-		self.currentPlayer.city.addSoldier(soldier)
+				troup = Archer()
+		self.currentPlayer.city.addSoldier(troup)
 		self.promptArmy()
+
+	def fight(player1Units : List, player2Units : List):
+
+		_Troup.initCorrectPosition(player1Units)
+		_Troup.initCorrectPosition(player2Units)
+
+		while not player1Units.len == 0 or player2Units.len == 0:
+			p1Ind = 0
+			p2Ind = 0
+
+			while p1Ind < player1Units.len and p2Ind < player2Units.len:
+				p1Unit : _Troup = player1Units.get(p1Ind)
+				p2Unit : _Troup = player2Units.get(p2Ind)
+
+				p1Unit.lowerDurationOfBuffs()
+				p2Unit.lowerDurationOfBuffs()
+				if p1Unit.stats.speed > p2Unit.stats.speed or (p1Unit.stats.speed == p2Unit.stats.speed and random.randint(0, 1) == 0):
+					order = ((p1Unit, player1Units), (p2Unit, player2Units))
+				else:
+					order = ((p2Unit, player2Units), (p1Unit, player1Units))
+
+				order[0][0].doAction(order[0][1], order[1][1])
+				p1Ind += 1
+				if (order[1][0].hp > 0):
+					order[1][0].doAction(order[1][1], order[0][1])		
+					p2Ind += 1
+
+				print(p1Unit.stats)
+				print(p2Unit.stats)
 
 	def endTurn(self) -> None :
 		screen("FINIR LE TOUR ?")
@@ -214,3 +242,10 @@ class Campaign :
 			self.nextPlayer()
 		else :
 			self.board()
+
+if __name__ == "__main__":
+	allies = List()
+	enemies = List()
+	allies.add(Warrior())
+	enemies.add(Warrior())
+	Campaign.fight(allies, enemies)
