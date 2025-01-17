@@ -1,12 +1,14 @@
+import random
 from game.model.Facility import _Facility, Habitation, Farm, Baracks
 from game.model.Resources import Resources
 from game.model.tree.Tree import TechnologyTree, ActionTree
 from game.model.tree.TreeNode import TechnologyNode
+from game.view import prompt
 from game.view.prompt import userInputInt, promptStatus
 from game.model.Fight import Fight
 from game.model.Troups import _Troup
 from game.model.Troups import UnitGroup
-from model.List import List
+from model.List import List, ListDeCon
 from game.model.Campaign import Campaign
 
 class Player :
@@ -141,7 +143,7 @@ class Player :
 		if choice > 0 :
 
 			enemy = l.get(choice - 1)
-			fight = Fight(UnitGroup(self.troups), UnitGroup(enemy.troups))
+			fight = Fight(UnitGroup(self.choseTroups()), UnitGroup(enemy.choseTroups()))
 
 			if fight.fight() == 1 :
 				winner = self
@@ -155,3 +157,22 @@ class Player :
 
 			winner.resources.domination += 10
 			loser.resources.domination += 2
+
+	def choseTroups(self):
+		if self.troups.len < 4:
+			troups = List()
+			for i in range(self.troups.len):
+				troups.add(self.troups.get(i))
+		else:
+			units = [random.randint(0,self.troups.len)]
+			troups = List()
+			added = set()
+			while len(units) > 0:
+				while units[0] in added:
+					units[0] = random.randint(0, self.troups.len)
+				added.add(units[0])
+				troups.add(self.troups.get(units.pop(0)))
+			
+		return UnitGroup(troups)
+
+
