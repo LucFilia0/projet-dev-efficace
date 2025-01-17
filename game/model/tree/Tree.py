@@ -11,6 +11,9 @@ from game.model.God import _God
 
 from game.view.prompt import *
 
+"""
+author : Nathan
+"""
 class _Tree :
 
     def __init__(self, player, jsonPath : str|None = None) -> Self :

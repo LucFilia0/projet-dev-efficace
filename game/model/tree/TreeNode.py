@@ -3,7 +3,9 @@ from colorama import Fore, Style
 
 from model.List import List
 from model.Stack import Stack
-
+"""
+author : Nathan
+"""
 class _TreeNode :
 
     def __init__(self, name : str, desc : str) -> Self :
@@ -83,7 +85,9 @@ class _TreeNode :
 
         return ret
 
-
+"""
+author : Nathan
+"""
 class TechnologyNode(_TreeNode) :
 
     def __init__(self, name : str, desc : str, cost : int) -> Self :
@@ -156,6 +160,9 @@ class ActionNode(_TreeNode) :
         self.callback : str = callback
         self.required : list|None = required
 
+"""
+author : Nathan
+"""
 class TreeNodeFactory :
 
     def create(data : dict) -> _TreeNode|None :

@@ -8,6 +8,9 @@ from typing import Self
 from colorama import Fore, Style
 from game.model.Resources import Resources
 
+"""
+author : Nathan
+"""
 class UnitGroup:
     def __init__(self, units : List):
         self.units : List = units
@@ -101,7 +104,9 @@ class UnitGroup:
             curr.value.lowerDurationOfBuffs()
             curr = curr.next
         
-
+"""
+author : Nathan
+"""
 class _Troup:
 
     defaultStats : Stat = Stat()
@@ -276,6 +281,9 @@ class _Troup:
     def onHPLost(self, amount : int, allies : UnitGroup, enemies : UnitGroup, source : Self):
         pass
 
+"""
+author : Nathan
+"""
 class Archer(_Troup):
 
     defaultStats = Stat(5, 2, 4, 0, 2, 3)
@@ -324,6 +332,9 @@ class Archer(_Troup):
             return True
         return False
 
+"""
+author : Nathan
+"""
 class Warrior(_Troup):
 
     defaultStats = Stat(8, 3, 1, 2, 2, 1)
@@ -359,6 +370,10 @@ class Warrior(_Troup):
                 buff.defense = 1
             self.buffs.add(buff)
 
+
+"""
+author : Nathan
+"""
 class Lancer(_Troup):
     defaultStats = Stat(7, 2, 2, 1, 2, 2)
     maxUnitCount = 2
@@ -501,7 +516,11 @@ class Priest(_Troup):
 
         queue.push("{0} a augmenté l'attaque de toutes les unités au corps à corps de {1}".format(self.positionStr(), Priest.skillDamage))
 
-                    
+
+"""
+author : Luc
+Unimplemented yet
+"""                
 class Rider(_Troup) :
 
     defaultStats = Stat(6, 3, 2, 3, 3, 2)

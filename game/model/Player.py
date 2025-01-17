@@ -20,7 +20,7 @@ class Player :
 	def __init__(self) :
 		self.name = None
 		self.city = None
-		self.resources = Resources(wood=10, stone=5, food=10, knowledge=8) #Starting resources
+		self.resources = Resources(wood=10, stone=5, food=10, knowledge=3) #Starting resources
 		self.troups = List()
 		self.technoTree = TechnologyTree(self)
 		self.actionTree = ActionTree(self)

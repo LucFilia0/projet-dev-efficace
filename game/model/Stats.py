@@ -1,6 +1,8 @@
 from typing import Self
 
-
+"""
+author : Nathan
+"""
 class Stat:
     def __init__(self, health = 0, attack = 0, speed = 0, defense = 0, cooldown = 0, range = 0):
         self.health = health
@@ -44,6 +46,9 @@ class Stat:
         return Stat(other.health, other.attack, other.speed, 
                     other.defense, other.cooldown, other.range)
 
+"""
+author : Nathan
+"""
 class Buff:
     def __init__(self, stats : Stat = Stat(), duration : int = 0):
         self.stats : Stat = Stat.createFromOther(stats)

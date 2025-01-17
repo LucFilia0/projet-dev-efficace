@@ -9,6 +9,9 @@ from colorama import Fore, Style
 
 from model.Queue import Queue
 
+"""
+author : Nathan
+"""
 class Fight:
 
     def __init__(self, player1Units : UnitGroup, player2Units : UnitGroup):
@@ -107,22 +110,4 @@ class Fight:
                     self.p2Units.ind += 1
 
         return queue
-
-if __name__ == "__main__":
-    p1Units = List()
-    p2Units = List()
-
-    p1Units.append(Warrior())
-    p1Units.append(Lancer())
-    p1Units.append(Archer())
-    p1Units.append(Archer())
-
-    p2Units.append(Warrior())
-    _God.create(2)
-    p2Units.append(Archer())
-    p2Units.append(Archer())
-    p2Units.append(Priest())
-
-    fight = Fight(UnitGroup(p1Units), UnitGroup(p2Units))
-    print(fight.fight())
 

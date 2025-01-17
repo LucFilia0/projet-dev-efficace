@@ -2,6 +2,10 @@ from typing import Self
 from game.view.prompt import userInputInt
 from game.model.Stats import Stat
 from game.model.Campaign import Campaign
+
+"""
+author : Nathan
+"""
 class _God:
 
     def __init__(self, godId : int, name : str, priestStat : Stat, priestSkillDamage : int):
