@@ -14,7 +14,7 @@ class TechnologyTree:
     The tree mostly contains recursive calls to functions on the root, which will then propagate the call to its children.
     author : Nathan
     """
-
+    
     def __init__(self, player):
         self.root : TreeNode = None
         self.player  = player
@@ -48,13 +48,7 @@ class TechnologyTree:
         Finds a node in the Tree
         returns the Node if it exists, None if it doesn't
         """
-
         if (self.root is not None):
             return self.root.findChild(name)
-        return None    
-            
-
-if __name__ == "__main__":
-    tree = TechnologyTree(None)
-    tree.buildTree()
+        return None
         

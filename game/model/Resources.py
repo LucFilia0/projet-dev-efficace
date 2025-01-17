@@ -1,4 +1,8 @@
 class Resources:
+    """
+    This class represents all the available resources in the game,
+    and allows to easily perform comparaison and operations.
+    """ 
 
     def __init__(self, domination=0, wealth=0, knowledge=0, gold=0, wood=0, stone=0, iron=0, food=0):
         # Score points

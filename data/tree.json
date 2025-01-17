@@ -5,34 +5,98 @@
         "type" : "TextNode",
         "children" : [
             {
-                "name" : "Voie des Armées",
-                "desc" : "Agrandissez votre armée afin de vous protéger de vos adversaires, voir même les attaquer...",
-                "type" : "TextNode",
-                "children" : [
-
-                ]
-            },
-            {
-                "name" : "Voie du Culte",
-                "desc" : "Augmentez l'influence de l'Eglise à travers votre cité. Choisissez parmi un des trois dieux et prouvez lui votre foi.",
-                "type" : "TextNode",
-                "children" : [
-
-                ]
-            },
-            {
-                "name" : "Voie du Développement",
-                "desc" : "Développez vos infrastructures ainsi que vos habitations pour permettre à votre cité de prospérer.",
-                "type" : "TextNode",
+                "name" : "Défrichage",
+                "desc" : "Augmentez votre production de bois en construisant d'autres scieries.",
+                "type" : "BuyableNode",
+                "cost" : 1,
                 "children" : [
                     {
-                        "name" : "Testing",
-                        "desc" : "Test",
+                        "name" : "Chasse",
+                        "desc" : "Vous apprenez à chasser, et pouvez augmentez votre production de nourriture en construisant des cabanes de chasseur.",
                         "type" : "BuyableNode",
-                        "cost" : 12,
+                        "cost" : 1,
                         "children" : [
-        
+                            {
+                                "name" : "Archerie",
+                                "desc" : "Entraînez de véritables archers, qui sauront garder leurs distances en combat.",
+                                "type" : "BuyableNode",
+                                "cost" : 2,
+                                "children" : []
+                            },
+                            {
+                                "name" : "Guilde des chasseurs",
+                                "desc" : "Vos archers deviennent de véritables chasseurs, qui sauront porter des coups critiques en combat.",
+                                "type" : "BuyableNode",
+                                "cost" : 3,
+                                "children" : []
+                            }
                         ]
+                    }
+                ]
+            },
+            {
+                "name" : "Foi",
+                "desc" : "Apprenez à construire des temples afin d'honorer les dieux, et de développer vos connaissances.",
+                "type" : "BuyableNode",
+                "cost" : 1,
+                "children" : [
+                    {
+                        "name" : "Dévouement",
+                        "desc" : "Formez des prêtres, qui sauront porter la parole divine si vous avez prété allégeance.",
+                        "type" : "BuyableNode",
+                        "cost" : 2,
+                        "children" : []
+                    },
+                    {
+                        "name" : "Allégeance",
+                        "desc" : "Apprenez à construire un autel, et prêtez allégeance à une divinité.",
+                        "type" : "BuyableNode",
+                        "cost" : 3,
+                        "children" : [
+                            {
+                                "name" : "Démeter",
+                                "desc" : "Déesse de la fertilité, aportera joie et prospérité à votre cité.",
+                                "type" : "BuyableNode",
+                                "cost" : 0,
+                                "children" : []
+                            },
+                            {
+                                "name" : "Arès",
+                                "desc" : "Dieu de la guerre, il saura vous apporter la victoire, ainsi que la tête de vos ennemis.",
+                                "type" : "BuyableNode",
+                                "cost" : 0,
+                                "children" : []
+                            },
+                            {
+                                "name" : "Athéna",
+                                "desc" : "Déesse de la connaissance et de la stratégie guerrière, vous apportera un futur glorieux.",
+                                "type" : "BuyableNode",
+                                "cost" : 0,
+                                "children" : []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name" : "Renforcement",
+                "desc" : "Formez des soldats afin de protéger votre cité... ou attaquer vos adversaires.",
+                "type" : "BuyableNode",
+                "cost" : 1,
+                "children" : [
+                    {
+                        "name" : "Minage",
+                        "desc" : "Apprenez à creuser et récoltez les ressources souterraines.",
+                        "type" : "BuyableNode",
+                        "cost" : 2,
+                        "children" : []
+                    },
+                    {
+                        "name" : "Forge",
+                        "desc" : "Apprenez à frapper le métal, et améliorez vos unités.",
+                        "type" : "BuyableNode",
+                        "cost" : 3,
+                        "children" : []
                     }
                 ]
             }
