@@ -2,10 +2,11 @@ from typing import Self
 from json import load
 from os import getcwd
 
-from game.model.tree.TreeNode import _TreeNode
+from game.model.tree.TreeNode import _TreeNode, TechnologyNode
 from game.model.tree.TreeNode import *
 from game.model.Campaign import *
 from game.model.Facility import *
+from game.model.God import _God, Ares, Athena, Demeter
 
 from game.view.prompt import *
 
@@ -76,13 +77,17 @@ class TechnologyTree(_Tree) :
     
     def _processNavigation(self) -> None :
 
-        node = self.root
+        node : TechnologyNode = self.root
         nodeStack = Stack()
         done = False
 
         while not done:
-            maxSelection = node.children.len + 1
             stackNotEmpty = not nodeStack.isEmpty()
+            if node.unlocked:
+                maxSelection = node.children.len
+            else:
+                maxSelection = 1
+            
             if stackNotEmpty:
                 maxSelection += 1
 
@@ -94,12 +99,12 @@ class TechnologyTree(_Tree) :
                 done = True
 
             # Accessing any technology
-            if (select <= node.children.len):
+            if (node.unlocked and select <= node.children.len):
                 nodeStack.push(node)
                 node = node.children.get(select - 1)
 
             # Unlocking a technology if it is buyable
-            elif select == node.children.len + 1 and node.canLearn():
+            elif select == 1 and node.canLearn():
                 self.player.learnTechnology(node)
 
             # Going back to the parent
@@ -171,7 +176,7 @@ class ActionTree(_Tree) :
                     case "Forge" :
                         facility = Forge()
                     case "Scierie" :
-                        facility = SawMill()
+                        facility = Sawmill()
                     case "Cabane de chasseur" :
                         facility = HunterHood()
                     case "Temple" :
@@ -190,3 +195,22 @@ class ActionTree(_Tree) :
                 self.player.technoTree.navigate()
                 promptStatus(node.title)
                 print(node.desc)
+
+            case "unlockDem":
+                self.promptGodUnlock(2)
+                
+            case "unlockAres":
+                self.promptGodUnlock(1)
+
+            case "unlockAth":
+                self.promptGodUnlock(0)
+
+    def promptGodUnlock(self, godId):
+        if (_God.getInstance() is None and _God.unlockGod(godId)):
+            self.removeOtherGods(godId)
+
+    def removeOtherGods(self, godId : int):
+        div = self.getNodeByName("Divinité")
+        temp = List()
+        temp.add(div.children.get(godId))
+        div.children = temp

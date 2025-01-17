@@ -56,8 +56,9 @@ class _TreeNode :
 
     def searchDirectChild(self, name : str) -> Self:
         i = 0
-        nodeList = self.children.getValuesInRange()
-        for node in nodeList:
+        nodeQueue = self.children.getValuesInRange()
+        while not nodeQueue.isEmpty():
+            node = nodeQueue.pop()
             if (node.name == name):
                 return node
             i += 1
@@ -74,9 +75,11 @@ class _TreeNode :
             retMsg = "Finir le tour"
 
         ret += f"[{ind}] {retMsg}"
-        while ind < self.children.len:
-            ret += f"\n[{ind + 1}] {self.children.get(ind)}"
+        curr = self.children.head
+        while curr is not None:
+            ret += f"\n[{ind + 1}] {curr.value}"
             ind += 1
+            curr = curr.next
 
         return ret
 
@@ -126,13 +129,14 @@ class TechnologyNode(_TreeNode) :
             ret += "Cette technologie ne débloque rien d'autre\n"
         
         ret += f"[{ind - 1}] Quitter\n"
-        while (ind <= self.children.len):
-            node = self.children.get(ind - 1)
-            if node.unlocked:
-                ret += f"[{ind}] {node}\n"
-            else:
-                ret += f"{Fore.RED}[{ind}] {node}{Style.RESET_ALL}\n"
-            ind += 1
+        if self.unlocked:
+            while (ind <= self.children.len):
+                node = self.children.get(ind - 1)
+                if node.unlocked:
+                    ret += f"[{ind}] {node}\n"
+                else:
+                    ret += f"{Fore.RED}[{ind}] {node}{Style.RESET_ALL}\n"
+                ind += 1
 
         if self.canLearn():
             ret += f"{Fore.GREEN}[{ind}] Débloquer{Style.RESET_ALL}\n"

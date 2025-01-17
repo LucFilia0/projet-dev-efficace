@@ -1,7 +1,5 @@
 from model.List import List
-from game.model.Facility import _Facility
-from game.model.Facility import Baracks
-from game.model.Facility import Habitation
+from game.model.Facility import _Facility, Baracks, Habitation, Farm, Forge, Temple, Altar, HunterHood, Mine, Sawmill
 from game.model.Troups import _Troup
 
 class City :
@@ -39,7 +37,7 @@ class City :
 			case "Forge" :
 				facility = Forge()
 			case "Scierie" :
-				facility = SawMill()
+				facility = Sawmill()
 			case "Cabane de chasseur" :
 				facility = HunterHood()
 			case "Temple" :

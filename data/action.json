@@ -134,7 +134,35 @@
                 "callback" : null,
                 "required" : ["Allégeance", "Autel"],
                 "type" : "ActionNode",
-                "children" : []
+                "children" : [
+                    {
+                        "name" : "Démeter",
+                        "title" : "CITE > DIVINITE > DEMETER",
+                        "desc" : "Déesse de la fertilité, aportera joie et prospérité à votre cité.",
+                        "type" : "ActionNode",
+                        "callback" : "unlockDem",
+                        "required" : null,
+                        "children" : []
+                    },
+                    {
+                        "name" : "Arès",
+                        "title" : "CITE > DIVINITE > ARES",
+                        "desc" : "Dieu de la guerre, il saura vous apporter la victoire, ainsi que la tête de vos ennemis.",
+                        "type" : "ActionNode",
+                        "callback" : "unlockAres",
+                        "required" : null,
+                        "children" : []
+                    },
+                    {
+                        "name" : "Athéna",
+                        "title" : "CITE > DIVINITE > ATHENA",
+                        "desc" : "Déesse de la connaissance et de la stratégie guerrière, vous apportera un futur glorieux.",
+                        "type" : "ActionNode",
+                        "callback" : "unlockAth",
+                        "required" : null,
+                        "children" : []
+                    }
+                ]
             }
         ]
     }

@@ -1,7 +1,8 @@
 import math
 import random
 import os
-from game.model.Troups import _Troup, Warrior, UnitGroup, Archer, Lancer
+from game.model.God import _God
+from game.model.Troups import _Troup, Priest, Warrior, UnitGroup, Archer, Lancer
 from model.List import List
 from game.view.prompt import userInputStr, userInputInt
 from colorama import Fore, Style
@@ -117,9 +118,10 @@ if __name__ == "__main__":
     p1Units.append(Archer())
 
     p2Units.append(Warrior())
-    p2Units.append(Lancer())
+    _God.create(2)
     p2Units.append(Archer())
     p2Units.append(Archer())
+    p2Units.append(Priest())
 
     fight = Fight(UnitGroup(p1Units), UnitGroup(p2Units))
     print(fight.fight())
