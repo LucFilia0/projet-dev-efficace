@@ -1,8 +1,8 @@
 from game.view.menu import menu
 from game.view.menu import test
 # menu()
-# test()
-import math
+test()
+""" import math
 import random
 import os
 from game.model.Troups import _Troup, Warrior, UnitGroup, Archer, Lancer
@@ -27,4 +27,4 @@ if __name__ == "__main__":
     p2Units.append(Archer())
 
     fight = Fight(UnitGroup(p1Units), UnitGroup(p2Units))
-    print(fight.fight())
+    print(fight.fight()) """

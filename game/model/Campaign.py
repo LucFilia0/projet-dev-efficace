@@ -1,15 +1,10 @@
-from game.model.Troups import _Troup, Lancer, Archer, Warrior
+from typing import Self
 from model.Queue import Queue
 from model.Stack import Stack
-from game.model.Player import Player
-from game.model.Facility import *
-from game.model.Facility import _Facility
-from game.view.prompt import *
-from game.model.Troups import *
-from game.model.TechnologyTree import TechnologyTree
-from typing import cast
 
 class Campaign :
+
+	_currentCampaign = None
 
 	def __init__(self) :
 		self.name = ""
@@ -19,7 +14,12 @@ class Campaign :
 		self.currentAction = 0
 		self.maxTurn = 0
 	
-	def addPlayer(self, player : Player) -> None :
+	def getInstance() -> Self :
+		if Campaign._currentCampaign is None :
+			Campaign._currentCampaign = Campaign()
+		return Campaign._currentCampaign
+	
+	def addPlayer(self, player) -> None :
 		player.createStartingFacilities()
 		self.playerQueue.push(player)
 	
@@ -36,34 +36,13 @@ class Campaign :
 		if self.currentAction % 2 == 0 :
 			self.currentTurn += 1
 
-		self.preBoard()
+		self.currentPlayer.startTurn()
 	
 	def start(self) -> None :
 		self.nextPlayer()
 
-	def promptStatus(self, path : str, prompt = True) -> None :
-		screen(f"({self.currentTurn}/{self.maxTurn}) {self.currentPlayer.name} | {self.currentPlayer.city.name}")
-		if prompt :
-			print(f"> {path}")
-			self.promptResources()
-		
-	def promptResources(self) -> None :
-		pad = 3
-		promptLine()
-		population = f"POP {self.currentPlayer.city.population}/{self.currentPlayer.city.maxPopulation}"
-		print(
-			f"{population.rjust(60)}\n"
-			f"SCORE || DOM {padNumber(self.currentPlayer.resources.domination, pad)} | ECO {padNumber(self.currentPlayer.resources.wealth, pad)} | SAV {padNumber(self.currentPlayer.resources.knowledge, pad)}\n"
-			f"CRAFT ||  OR {padNumber(self.currentPlayer.resources.gold, pad)} | BOI {padNumber(self.currentPlayer.resources.wood, pad)} | PIR {padNumber(self.currentPlayer.resources.stone, pad)} | FER {padNumber(self.currentPlayer.resources.iron, pad)} | NUR {padNumber(self.currentPlayer.resources.food, pad)}"
-		)
-		promptLine()
-
-	def preBoard(self) -> None :
-		self.promptStatus("", False)
-		userInputInt("[0] À toi de jouer !", 0, 0)
-		self.board()
-
-	def board(self) -> None :
+	# OUTDATED
+	""" def board(self) -> None :
 		self.promptStatus("CITE")
 		maxOpt = 2
 		string = "[0] Finir le tour\n[1] Constructions\n[2] Technologies"
@@ -138,11 +117,6 @@ class Campaign :
 			self.promptFacilities()
 	
 	def promptTechnologies(self) -> None:
-		"""
-		Displays the tree in a little menu that lets the player simply navigate through it, 
-		read information about Technologies he has access to, or unlock new ones.
-		author : Nathan
-		"""
 
 		tree = self.currentPlayer.technoTree
 
@@ -212,11 +186,4 @@ class Campaign :
 		if q == 1 :
 			self.nextPlayer()
 		else :
-			self.board()
-
-if __name__ == "__main__":
-	allies = List()
-	enemies = List()
-	allies.add(Warrior())
-	enemies.add(Warrior())
-	Campaign.fight(allies, enemies)
+			self.board() """
