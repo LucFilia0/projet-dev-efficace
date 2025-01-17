@@ -50,7 +50,7 @@ def promptUserInformations(player : Player|None) -> None :
 	promptLine()
 
 def createCampaign() -> None :
-	campaign = Campaign()
+	campaign = Campaign.getInstance()
 	campaignPlayerCount = 0
 	i = 0
 	while i < 5 :
