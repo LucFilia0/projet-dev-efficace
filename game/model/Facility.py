@@ -55,12 +55,12 @@ class _NonRentableFacility(_Facility) :
 class Farm(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Ferme", None, Resources(food=6), 3)
+		super().__init__("Ferme", Resources(food=1, wood=2), Resources(food=6), 3)
 
 class Habitation(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Habitation", None, None, 0)
+		super().__init__("Habitation", Resources(wood=2), None, 0)
 		self.given = False
 	
 	def getGain(self) -> Resources|int|None :
@@ -72,13 +72,13 @@ class Habitation(_Facility) :
 class Baracks(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Caserne", None)
+		super().__init__("Caserne", Resources(stone=2, wood=4))
 		self.troups = 0
 
 class Mine(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Mine", None, None, 2)
+		super().__init__("Mine", Resources(wood=4), None, 2)
 		self.stoneRatio = (random() * 10) % 5 + 1
 		self.ironRatio = (random() * 10) % 5 + 1
 
@@ -88,24 +88,24 @@ class Mine(_Facility) :
 class Forge(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Forge", None)
+		super().__init__("Forge", Resources(stone=6))
 
 class Sawmill(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Scierie", None, Resources(wood=5), 1)
+		super().__init__("Scierie", Resources(wood=6, iron=1), Resources(wood=3), 1)
 
 class HunterHood(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Ferme", None, Resources(food=2), 1)
+		super().__init__("Ferme", Resources(wood=2), Resources(food=1), 1)
 
 class Temple(_Facility) :
 
 	def __init__(self) :
-		super().__init__("Temple", None, Resources(knowledge=2), 1)
+		super().__init__("Temple", Resources(stone=4), Resources(knowledge=2), 1)
 
 class Altar(_NonRentableFacility) :
 
 	def __init__(self) :
-		super().__init__("Autel", None)
+		super().__init__("Autel", Resources(stone=3, iron=1))

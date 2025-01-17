@@ -1,5 +1,4 @@
-import random
-from game.model.Facility import _Facility, Habitation, Farm, Baracks
+from game.model.Facility import _Facility, Habitation, Farm, Baracks, Sawmill
 from game.model.Resources import Resources
 from game.model.tree.Tree import TechnologyTree, ActionTree
 from game.model.tree.TreeNode import TechnologyNode
@@ -42,6 +41,7 @@ class Player :
 	def createStartingFacilities(self) -> None :
 		self.city.facilities.add(Habitation()) # Je suis une merde T-T
 		self.city.facilities.add(Farm())
+		self.city.facilities.add(Sawmill())
 	
 	def collectResources(self) -> None :
 		"""

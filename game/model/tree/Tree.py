@@ -155,7 +155,8 @@ class ActionTree(_Tree) :
 
         for i in range(node.nbChildren()) :
             n = node.children.get(i)
-            if n.required is None or (n.required[0] is None or self.player.technoTree.isUnlocked(n.required[0])) and (n.required[1] is None or self.player.city.contains(n.required[1])) :
+            if (n.required is None or (n.required[0] is None or self.player.technoTree.isUnlocked(n.required[0])) 
+                and (n.required[1] is None or self.player.city.contains(n.required[1]))) :
                 unlockedChildren.children.add(n)
 
         return unlockedChildren
